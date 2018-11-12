@@ -3,8 +3,8 @@
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'root');
 define('DB_PASSWORD', 'bigsucc');
-define('DB_DATABASE', 'db_camagru');
-define("BASE_URL", "127.0.0.1/camagru/");
+define('DB_DATABASE', 'db_matcha');
+define("BASE_URL", "127.0.0.1/matcha/");
 
 
 function createInitialDatabase() {

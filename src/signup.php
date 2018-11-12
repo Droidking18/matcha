@@ -62,6 +62,12 @@ function checkForm(form)
         form.password.focus();
         return false;
       }
+      files = document.forms['form']['photo'].files.length;
+      if (document.forms['form']['photo'].files.length > 4) {
+          alert ("ERROR: You have " + files + " files. 4 is the max.");
+          form.photo.focus();
+          return false;
+      }
     } else {
       alert("Error: Please check that you've entered and confirmed your password!");
       form.password.focus();
@@ -78,26 +84,30 @@ function passvis() {
         x.type = "password";
     }
 }
+
 </script>
 </head>
 <body background = "https://wallpapertag.com/wallpaper/full/a/d/8/8613-amazing-dark-background-2560x1600-download-free.jpg" style="background-size: cover;">
-<div class="center">
-<center id="login">
+<div style="display:flex;justify-content:center;align-items:center;">
 <form action="verify.php" id="form" method="POST" onsubmit="return checkForm(this);" >
-<br>
-<div class="center">
-<input id="login" style="width: 160px;" type="text" name="login" placeholder="Enter login" required><br><br><br>
-<br>
-<input id="pw" style="width: 160px;" type="password" name="password" placeholder="Enter password" required><font color="white" face="verdana" size="1">
-Show password</font><input style="color: white" type="checkbox" onclick="passvis()"><br><br>
-<br>
-<input id="email" style="width: 160px;" type="text" name="email" placeholder="Enter email" required>
-<input id="notify" style="width: 160px; center" value="Y" type="checkbox" name="notify" checked><font size=1 style="color: white;">Tick for email notifications.</font><br><br>
+<input id="login" style="width: 160px;" type="text" name="login" placeholder="Enter login" required><br><br>
+<input id="pw" style="width: 160px;" type="password" name="password" placeholder="Enter password" required><font color="white" face="verdana" size="1">Show password</font><input style="color: white" type="checkbox" onclick="passvis()"><br><br>
+<input id="email" style="width: 160px;" type="text" name="email" placeholder="Enter email" required> <br> <br> <font color=white size=1> What's your gender? </font>
+<select name="gender">
+  <option value="M">Male</option>
+  <option value="F">Female</option>
+  <option value="O">Non-binary</option>
+</select> <br> <br> <font color=white size=1> What's your sexual preference? </font>
+<select name="gender-pref">
+  <option value="M">Male</option>
+  <option value="F">Female</option>
+  <option value="O">Non-binary</option>
+</select> <br> <br>
+<input type="file" name="photo" accept="image/png" id="photo" multiple color="white"> <font size=1 color="white"> Upload some images of yourself. (max 4.)(not required)</font> <br><br>
+<input type="file" name="photo" accept="image/png" id="dp" color="white" required> <font size=1 color="white"> Upload a profile picture of yourself.</font> <br><br>
 <input class="button" type="submit" value="Submit">
-</div>
 </form>
-</center>
-<div>
+</div>
 </body>
 <footer style ="position: fixed; bottom: -400; color: gray; text-align: center;"><hr style="border: 2px solid gray;" />dkaplanⓒ</footer>
 </html>

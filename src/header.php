@@ -2,6 +2,7 @@
 function getHead () {
 echo
 "<html>
+<title> MATCHA </title>
 <head>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <style>
@@ -146,7 +147,7 @@ body {
 </style>
 </head>
 <body>
-<title> CAMAGRU </title> 
+<title> MATCHA </title> 
 <div class='header'>
   <a href='https://www.reddit.com/r/PHP/comments/1fy71s/why_do_so_many_developers_hate_php/' class='logo'>
   <img src='https://cdn.boldomatic.com/content/post/C7fpXQ/Instaspam?size=800' height='50' width='50'></a>"
