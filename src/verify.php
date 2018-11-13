@@ -6,6 +6,10 @@ include ("header.php");
 include ("mail.php");
 include ("backcheck.php");
 
+
+//Array ( [login] => root [password] => bigsuccDD32 [email] => dovikaplan@gmail.com [gender] => M [gender-pref] => M [photo] => [long] => Longitude location is 31.017000 [lat] => Longitude location is -29.850000 [ph1] => [ph2] => [ph3] => [ph4] => [dp] => )
+
+exit(print_r($_POST));
 if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email'])) {
 	if (!checkLogin($_POST['login']) || !checkpass($_POST['password']) || !checkEmail($_POST['email']))
         exit ("You got something wrong, and that only happened becuase you played with my JS. Not cool man, not cool. <meta http-equiv='refresh' content='2;url=login.php' />");

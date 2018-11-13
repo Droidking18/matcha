@@ -13,7 +13,44 @@ getHead();
 <head>
 <title>Login</title>
 <link rel="stylesheet" href="css/login.css">
+<p id="demo"></p>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition,showError);
+  } else {
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+  //x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+      document.getElementById("lat").value = ("Longitude location is " + position.coords.latitude);
+      document.getElementById("long").value = ("Longitude location is " + position.coords.longitude);
+}
+
+function showError(error) {
+  switch(error.code) {
+    case error.PERMISSION_DENIED:
+      $.getJSON('http://gd.geobytes.com/GetCityDetails?callback=?', function(data) {
+      var datas = (JSON.stringify(data, null, 2));
+      document.getElementById("long").value = ("Longitude location is " + data.geobyteslongitude);
+      document.getElementById("lat").value = ("Longitude location is " + data.geobyteslatitude);
+      });
+
+      break;
+    case error.POSITION_UNAVAILABLE:
+      break;
+    case error.TIMEOUT:
+      break;
+    case error.UNKNOWN_ERROR:
+      break;
+  }
+}
+
 function checkForm(form)
 {
     re = /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9_\-\.]+\.[a-zA-Z]{2,15}$/;
@@ -85,6 +122,22 @@ function passvis() {
     }
 }
 
+function handleFileSelect(evt) {
+   var arr = (document.getElementById('dph').value).split(".");
+   var ext = arr[arr.length - 1];
+   var f = evt.target.files[0];
+   var reader = new FileReader();
+   reader.onload = (function(theFile) {
+     return function(e) {
+       var binaryData = e.target.result;
+       var base64String = (window.btoa(binaryData));
+       document.getElementById('dp').value = base64String;
+     };
+   })(f);
+   reader.readAsBinaryString(f);
+ }
+
+
 </script>
 </head>
 <body background = "https://wallpapertag.com/wallpaper/full/a/d/8/8613-amazing-dark-background-2560x1600-download-free.jpg" style="background-size: cover;">
@@ -103,9 +156,20 @@ function passvis() {
   <option value="F">Female</option>
   <option value="O">Non-binary</option>
 </select> <br> <br>
-<input type="file" name="photo" accept="image/png" id="photo" multiple color="white"> <font size=1 color="white"> Upload some images of yourself. (max 4.)(not required)</font> <br><br>
-<input type="file" name="photo" accept="image/png" id="dp" color="white" required> <font size=1 color="white"> Upload a profile picture of yourself.</font> <br><br>
-<input class="button" type="submit" value="Submit">
+<input type="file" name="dph" accept="image/png" id="dph" color="white" required> <font size=1 color="white"> Upload a profile picture of yourself. (required)</font> <br><br>
+<input type="file" name="pho1" accept="image/png" id="photo1" color="white"> <font size=1 color="white"> Upload some images of yourself. (not required)</font> <br><br>
+<input type="file" name="pho2" accept="image/png" id="photo2" color="white"> <font size=1 color="white"> Upload some images of yourself. (not required)</font> <br><br>
+<input type="file" name="pho3" accept="image/png" id="photo3" color="white"> <font size=1 color="white"> Upload some images of yourself. (not required)</font> <br><br>
+<input type="file" name="pho4" accept="image/png" id="photo4" color="white"> <font size=1 color="white"> Upload some images of yourself. (not required)</font> <br><br>
+<!-- <button onclick="getLocation()">Get location</button> <br> <br> -->
+<input type="hidden" name="long" id="long" required>
+<input type="hidden" name="lat" id="lat" required>
+<input type="hidden" name="ph1" id="ph1" required>
+<input type="hidden" name="ph2" id="ph2" required>
+<input type="hidden" name="ph3" id="ph3" required>
+<input type="hidden" name="ph4" id="ph4" required>
+<input type="hidde" name="dp" id="dp" required>
+<input class="button" onclick="getLocation()" type="submit" value="Submit">
 </form>
 </div>
 </body>
