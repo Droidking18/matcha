@@ -16,6 +16,9 @@ getHead();
 <p id="demo"></p>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
+
+
+
 var x = document.getElementById("demo");
 
 function getLocation() {
@@ -122,7 +125,16 @@ function passvis() {
     }
 }
 
-function handleFileSelect(evt) {
+
+function eventListen() {
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+   document.getElementById('dph').addEventListener('change', handleFileSelect, false);
+ } else {
+   alert('The File APIs are not fully supported in this browser.');
+ }}
+
+
+ function handleFileSelect(evt) {
    var arr = (document.getElementById('dph').value).split(".");
    var ext = arr[arr.length - 1];
    var f = evt.target.files[0];
@@ -132,15 +144,114 @@ function handleFileSelect(evt) {
        var binaryData = e.target.result;
        var base64String = (window.btoa(binaryData));
        document.getElementById('dp').value = base64String;
+       console.log (base64String);
+     };
+   })(f);
+   reader.readAsBinaryString(f);
+ }
+
+function eventListen1() {
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+   document.getElementById('photo1').addEventListener('change', handleFileSelect1, false);
+ } else {
+   alert('The File APIs are not fully supported in this browser.');
+ }}
+
+
+ function handleFileSelect1(evt) {
+   var arr = (document.getElementById('photo1').value).split(".");
+   var ext = arr[arr.length - 1];
+   var f = evt.target.files[0];
+   var reader = new FileReader();
+   reader.onload = (function(theFile) {
+     return function(e) {
+       var binaryData = e.target.result;
+       var base64String = (window.btoa(binaryData));
+       document.getElementById('ph1').value = base64String;
+       console.log (base64String);
      };
    })(f);
    reader.readAsBinaryString(f);
  }
 
 
+function eventListen2() {
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+   document.getElementById('photo2').addEventListener('change', handleFileSelect1, false);
+ } else {
+   alert('The File APIs are not fully supported in this browser.');
+ }}
+
+
+ function handleFileSelect2(evt) {
+   var arr = (document.getElementById('photo2').value).split(".");
+   var ext = arr[arr.length - 1];
+   var f = evt.target.files[0];
+   var reader = new FileReader();
+   reader.onload = (function(theFile) {
+     return function(e) {
+       var binaryData = e.target.result;
+       var base64String = (window.btoa(binaryData));
+       document.getElementById('ph2').value = base64String;
+       console.log (base64String);
+     };
+   })(f);
+   reader.readAsBinaryString(f);
+ }
+
+
+function eventListen3() {
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+   document.getElementById('photo3').addEventListener('change', handleFileSelect1, false);
+ } else {
+   alert('The File APIs are not fully supported in this browser.');
+ }}
+
+
+ function handleFileSelect3(evt) {
+   var arr = (document.getElementById('photo3').value).split(".");
+   var ext = arr[arr.length - 1];
+   var f = evt.target.files[0];
+   var reader = new FileReader();
+   reader.onload = (function(theFile) {
+     return function(e) {
+       var binaryData = e.target.result;
+       var base64String = (window.btoa(binaryData));
+       document.getElementById('ph3').value = base64String;
+       console.log (base64String);
+     };
+   })(f);
+   reader.readAsBinaryString(f);
+ }
+
+
+function eventListen4() {
+if (window.File && window.FileReader && window.FileList && window.Blob) {
+   document.getElementById('photo4').addEventListener('change', handleFileSelect1, false);
+ } else {
+   alert('The File APIs are not fully supported in this browser.');
+ }}
+
+
+ function handleFileSelect4(evt) {
+   var arr = (document.getElementById('photo4').value).split(".");
+   var ext = arr[arr.length - 1];
+   var f = evt.target.files[0];
+   var reader = new FileReader();
+   reader.onload = (function(theFile) {
+     return function(e) {
+       var binaryData = e.target.result;
+       var base64String = (window.btoa(binaryData));
+       document.getElementById('ph4').value = base64String;
+       console.log (base64String);
+     };
+   })(f);
+   reader.readAsBinaryString(f);
+ }
+//////// YES, I AM VERY EMBARRASSED OF THIS CODE :( /////////
 </script>
 </head>
-<body background = "https://wallpapertag.com/wallpaper/full/a/d/8/8613-amazing-dark-background-2560x1600-download-free.jpg" style="background-size: cover;">
+<body onload="eventListen(); eventListen1(); eventListen2(); eventListen3(); eventListen4();" background = "https://wallpapertag.com/wallpaper/full/a/d/8/8613-amazing-dark-background-2560x1600-download-free.jpg" style="background-size: cover;">
 <div style="display:flex;justify-content:center;align-items:center;">
 <form action="verify.php" id="form" method="POST" onsubmit="return checkForm(this);" >
 <input id="login" style="width: 160px;" type="text" name="login" placeholder="Enter login" required><br><br>
@@ -164,11 +275,11 @@ function handleFileSelect(evt) {
 <!-- <button onclick="getLocation()">Get location</button> <br> <br> -->
 <input type="hidden" name="long" id="long" required>
 <input type="hidden" name="lat" id="lat" required>
+<input type="hidden" name="dp" id="dp" required>
 <input type="hidden" name="ph1" id="ph1" required>
 <input type="hidden" name="ph2" id="ph2" required>
 <input type="hidden" name="ph3" id="ph3" required>
 <input type="hidden" name="ph4" id="ph4" required>
-<input type="hidde" name="dp" id="dp" required>
 <input class="button" onclick="getLocation()" type="submit" value="Submit">
 </form>
 </div>

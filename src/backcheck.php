@@ -4,9 +4,18 @@ function checkEmail($email)
 {
     $re = "/^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9_\-\.]+\.[a-zA-Z]{2,15}$/";
     if(!preg_match($re, "$email"))
-	return false;
+	    return false;
     else
     	return true;
+}
+
+function checkName($name)
+{
+    $re = "/^[A-Za-z]+$/";
+    if (!preg_match($re, "$name"))
+        return false;
+    else
+        return true;
 }
 
 function checkLogin($login)

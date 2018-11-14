@@ -42,9 +42,15 @@ function createTableDatabase($conn) {
 	$sql="CREATE TABLE IF NOT EXISTS `users` (
 		`id` VARCHAR(100) PRIMARY KEY UNIQUE,
 		`login` VARCHAR(50) NOT NULL UNIQUE,
-		`password` VARCHAR(255) NOT NULL,
+        `password` VARCHAR(255) NOT NULL,
+        `first_name` VARCHAR(16) NOT NULL,
+        `dp` LONGTEXT NOT NULL,
+        `images` LONGTEXT,
+        `last_name` VARCHAR(16) NOT NULL,
         `email` VARCHAR(50) NOT NULL UNIQUE,
         `emailverify` ENUM('N', 'Y') NOT NULL,
+        `gen_pref` ENUM('F', 'M', 'O') NOT NULL,
+        `gen_pref` ENUM('F', 'M', 'O') NOT NULL,
         `notify` ENUM('N', 'Y') NOT NULL);";
 	$conn->exec($sql);
     echo "Table users created";
