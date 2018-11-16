@@ -56,6 +56,32 @@ function showError(error) {
 
 function checkForm(form)
 {
+	arr = document.getElementById("interest").value.split(' ');
+	console.log(arr);
+	var j = 0;
+	while (j < arr.length)
+	{
+		arr2 = arr[j].slice(1, arr[j].length);
+			console.log(arr2);
+		re = /^\w+$/;
+		if (!re.test(arr2)){
+			alert("Error: interests format is incorrect. Must be interests seperated by spaces and must all start with '#'");
+             		form.interest.focus();
+             		return false;
+         }
+
+		j++;
+	}
+	first = arr.map(([v])=> v);
+	console.log(first);
+	for (var i = 0; i < first.length; i++) {
+		console.log(i + first[i])
+    	if (first[i] != '#') {
+		alert ("Interests must all start with #");
+		form.interest.focus();
+		return false;
+	}
+      }
     re = /^[a-zA-Z0-9_\-\.]+@[a-zA-Z0-9_\-\.]+\.[a-zA-Z]{2,15}$/;
     if(!re.test(form.email.value)) {  
       alert("Error: Email is invalid.");
@@ -108,7 +134,7 @@ function checkForm(form)
           form.photo.focus();
           return false;
       }
-    } else {
+          } else {
       alert("Error: Please check that you've entered and confirmed your password!");
       form.password.focus();
       return false;
@@ -144,7 +170,6 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
        var binaryData = e.target.result;
        var base64String = (window.btoa(binaryData));
        document.getElementById('dp').value = base64String;
-       console.log (base64String);
      };
    })(f);
    reader.readAsBinaryString(f);
@@ -248,7 +273,6 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
    })(f);
    reader.readAsBinaryString(f);
  }
-//////// YES, I AM VERY EMBARRASSED OF THIS CODE :( /////////
 </script>
 </head>
 <body onload="eventListen(); eventListen1(); eventListen2(); eventListen3(); eventListen4();" background = "https://wallpapertag.com/wallpaper/full/a/d/8/8613-amazing-dark-background-2560x1600-download-free.jpg" style="background-size: cover;">
@@ -280,6 +304,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 <input type="hidden" name="ph2" id="ph2" required>
 <input type="hidden" name="ph3" id="ph3" required>
 <input type="hidden" name="ph4" id="ph4" required>
+<input style = "width: 560;" type="text" id="interest" name="interest" placeholder="Please enter your interests started with '#' e.g. #gamer #pinappleonpizza #h ... " required><br><br>
 <input class="button" onclick="getLocation()" type="submit" value="Submit">
 </form>
 </div>
