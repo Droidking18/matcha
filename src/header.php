@@ -150,7 +150,7 @@ body {
 <title> MATCHA </title> 
 <div class='header'>
   <a href='https://www.reddit.com/r/PHP/comments/1fy71s/why_do_so_many_developers_hate_php/' class='logo'>
-  <img src='https://cdn.boldomatic.com/content/post/C7fpXQ/Instaspam?size=800' height='50' width='50'></a>"
+  <img src='https://preview.ibb.co/nBWeEf/logodovi.png' height='50' ></a>"
   . "<center class='welcome' style='display: inline; font-size: 20px; color: gray;'>           Welcome, " . htmlspecialchars($_SESSION['login']) . "! </center>" .
   "<div class='header-right'>
 	<a class='active' href='index.php'>Home</a>

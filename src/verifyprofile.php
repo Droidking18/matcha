@@ -1,6 +1,7 @@
 <?php
 
 session_start();
+include ("backcheck.php");
 
 //Array ( [gender] => M [gender-pref] => F [dph] => logodovi.png [pho1] => [pho2] => [pho3] => [pho4] => [long] => Longitude location is 27.8962176 [lat] => Longitude location is -26.148864 [dp] => 'base64string.. very long' [ph1] => [ph2] => [ph3] => [ph4] => [interest] => #yes )
 
@@ -28,6 +29,7 @@ else
 $dp = $_POST['dp'];
 $interest = $_POST['interest'];
 
-if (isset($interest) && isset($long) && isset($gen) && isset($gen_pref) && isset($dp))
+if (isset($interest) && checkInterest($interest) && isset($long) && isset($lat) && checkLoc($lat, $long) && isset($gen) && isset($gen_pref) && checkGen($gen) && checkGen($gen_pref) && isset($dp) && checkBase64($dp))
+    echo "hi, yeah it all good thank";
 
 

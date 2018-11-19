@@ -43,8 +43,6 @@ function checkPass($pass)
 	return true;
 }
 
-/////////////(isset($interest) && isset($long) && isset($gen) && isset($gen_pref) && isset($dp))////////
-
 function checkInterest($int){
     $re = "/^\s+$/";
     if (preg_match ($re, $int) || strlen($int) < 2)
@@ -74,5 +72,23 @@ function checkGen ($gen)
         return true;
     else
         return false;
+}
+
+function checkLoc ($lat, $long) {
+    if (is_float($lat) && is_float($long))
+        return (true);
+    else
+        return (false);
+}
+
+function checkBase64 ($b64) {
+    $decoded = base64_decode($b64, true);
+    if (!preg_match('/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $b64)) 
+        return false;
+    if (!base64_decode($b64, true)) 
+        return false;
+    if (base64_encode($decoded) != $b64) 
+        return false;
+    return true;
 }
 ?>

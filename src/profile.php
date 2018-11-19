@@ -7,7 +7,7 @@ if (!isset($_SESSION['login']))
 include ("../config/config.php");
 include ("header.php");
 
-getHead();
+getLoggedHead();
 ?>
 <html>
 <head>
