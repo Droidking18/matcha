@@ -43,4 +43,9 @@ function checkPass($pass)
 	return true;
 }
 
+/////////////(isset($interest) && isset($long) && isset($gen) && isset($gen_pref) && isset($dp))////////
+
+
+
+
 ?>

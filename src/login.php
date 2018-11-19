@@ -16,9 +16,24 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 		if ($user["login"] == $_POST['login'])
             if (password_verify($_POST['password'], $user['password'])) {
                 if ($user['emailverify'] == 'Y') {
-				    $_SESSION['login'] = $_POST['login'];	
+				$_SESSION['login'] = $_POST['login'];	
 		    		$_SESSION['email'] = $user['email'];	
 			    	$_SESSION['passhash'] = $user['password'];
+			    	$_SESSION['pic1'] = $user['image1'];
+			    	$_SESSION['pic2'] = $user['image2'];
+			    	$_SESSION['pic3'] = $user['image3'];
+			    	$_SESSION['pic4'] = $user['image4'];
+			    	$_SESSION['dp'] = $user['dp'];
+			    	$_SESSION['rating'] = $user['rating'];
+			    	$_SESSION['notification'] = $user['notification'];
+			    	$_SESSION['lat'] = $user['lat'];
+			    	$_SESSION['long'] = $user['long'];
+			    	$_SESSION['profile'] = $user['profile'];
+			    	$_SESSION['gen'] = $user['gen'];
+			    	$_SESSION['gen_pref'] = $user['gen_pref'];
+			    	$_SESSION['first_name'] = $user['first_name'];
+			    	$_SESSION['last_name'] = $user['last_name'];
+			    	$_SESSION['dob'] = $user['dob'];
                     exit("Congratulations, you're now logged in. <meta http-equiv='refresh' content='3;url=index.php' />");
                 }    
                 else

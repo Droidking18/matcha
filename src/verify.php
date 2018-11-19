@@ -8,24 +8,20 @@ include ("backcheck.php");
 
 
 //Array ( [login] => root [password] => bigsuccDD32 [email] => dovikaplan@gmail.com [gender] => M [gender-pref] => M [photo] => [long] => Longitude location is 31.017000 [lat] => Longitude location is -29.850000 [ph1] => [ph2] => [ph3] => [ph4] => [dp] => )
+//exit(print_r($_POST));
 
-exit(print_r($_POST));
 if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email'])) {
 	if (!checkLogin($_POST['login']) || !checkpass($_POST['password']) || !checkEmail($_POST['email']))
         exit ("You got something wrong, and that only happened becuase you played with my JS. Not cool man, not cool. <meta http-equiv='refresh' content='2;url=login.php' />");
     try {
-        if (isset($_POST['notify']))
-            $notify = "Y";
-        else
-            $notify = "N";
-		$conn = getDB();
+	$conn = getDB();
         $hash = password_hash($_POST['password'], PASSWORD_BCRYPT);
         $id = uniqid('', TRUE) . uniqid('', TRUE);
         $login = htmlspecialchars($_POST["login"]);
         $email = htmlspecialchars($_POST["email"]);
-        $sql = "INSERT INTO users (id, login, password, email, notify) VALUES (?, ?, ?, ?, ?)";               
+        $sql = "INSERT INTO users (id, login, password, email, notification, profile, dp) VALUES (?, ?, ?, ?, ?, ?, ?)";               
         $statement= $conn->prepare($sql);
-        $statement->execute([$id, $login, $hash, $email, $notify]);
+        $statement->execute([$id, $login, $hash, $email, "N", "N", "none"]);
                  } catch (exception $e) {
                        echo $e->getMessage() . "\n";
                        exit ("Something went wrong, try again <meta http-equiv='refresh' content='3;url=index.php' />");
