@@ -8,7 +8,9 @@ include ("mail.php");
 if (!isset($_SESSION['login']))
 	exit ("Log in to like or comment. <meta http-equiv='refresh' content='2;url=index.php' />");
 else
-	getLoggedHead();
+    getLoggedHead();
+if ($_SESSION['profile'] == 'N')
+     exit("Hi, ". htmlspecialchars($_SESSION['login']) .  ". Tell us about yourself. <meta http-equiv='refresh' content='2;url=profile.php' />");
 
 if (isset($_GET['action']))
 {

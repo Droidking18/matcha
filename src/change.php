@@ -5,9 +5,11 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 
-if (session_status() == 1) {
-    session_start();
-}
+session_start();
+
+if ($_SESSION['profile'] == 'N')
+    exit("Hi, ". htmlspecialchars($_SESSION['login']) .  ". Tell us about yourself. <meta http-equiv='refresh' content='2;url=profile.php' />");
+
 include ("../config/config.php");
 include ("backcheck.php");
 

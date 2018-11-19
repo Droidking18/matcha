@@ -3,7 +3,9 @@ session_start();
 
 include ("header.php");
 if (!isset($_SESSION['login']))
-	exit ("<meta http-equiv='refresh' content='0;url=signup.php' />");
+    exit ("<meta http-equiv='refresh' content='0;url=signup.php' />");
+if ($_SESSION['profile'] == 'N')
+     exit("Hi, ". htmlspecialchars($_SESSION['login']) .  ". Tell us about yourself. <meta http-equiv='refresh' content='2;url=profile.php' />");
 getLoggedHead();
 
 ?>

@@ -7,7 +7,7 @@ session_start();
 if (!isset($_GET['page']) || $_GET['page'] <= 0)
 	exit ("<meta http-equiv='refresh' content='0;url=index.php?page=1' />");
 if ($_SESSION['profile'] == 'N')
-	exit("Hi, ". $_SESSION['first_name'] .  "Tell us about your stupid self. <meta http-equiv='refresh' content='2;url=profile.php' />");
+	exit("Hi, ". htmlspecialchars($_SESSION['login']) .  ". Tell us about yourself. <meta http-equiv='refresh' content='2;url=profile.php' />");
 if ($_SESSION['login'])
  getLoggedHead();
 else

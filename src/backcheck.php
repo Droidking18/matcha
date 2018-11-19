@@ -45,7 +45,34 @@ function checkPass($pass)
 
 /////////////(isset($interest) && isset($long) && isset($gen) && isset($gen_pref) && isset($dp))////////
 
+function checkInterest($int){
+    $re = "/^\s+$/";
+    if (preg_match ($re, $int) || strlen($int) < 2)
+        return (false);
+    $re = "/^\w+$/";
+    $arr =  (array_values(array_filter(explode(" ", $int))));
+    $j = 0;
+    while ($j < sizeof($arr)) {
+        $str =  substr($arr[$j], 1);
+        if (!preg_match($re, $str))
+            return (false);
+        $j++;
+    }
+    $first = array_map(function ($str) { return ($str[0]); } , $arr);
+    $i = 0;
+    while ($i < sizeof($first)) {
+        if ($first[$i] != '#')
+            return (false);
+        $i++;
+    }
+    return ($arr);
+}
 
-
-
+function checkGen ($gen)
+{
+    if ($gen == "M" || $gen == "F" || $gen == "O")
+        return true;
+    else
+        return false;
+}
 ?>

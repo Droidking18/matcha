@@ -5,7 +5,9 @@ include ("../config/config.php");
 include ("header.php");
 
 if (isset($_SESSION['login']))
-	getLoggedHead();
+    getLoggedHead();
+if ($_SESSION['profile'] == 'N')
+     exit("Hi, ". htmlspecialchars($_SESSION['login']) .  ". Tell us about yourself. <meta http-equiv='refresh' content='2;url=profile.php' />");
 $conn = getDB();
  $sql = "SELECT likes FROM images WHERE id = " . $_GET['id'];
  echo "<H1 style='color: white; margin: auto; width: 50%; text-align:center;'> Likes 👍</H1>";

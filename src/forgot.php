@@ -6,6 +6,8 @@ include ("../config/config.php");
 
 if ($_SESSION['login'])
     echo "<meta http-equiv='refresh' content='0;url=login.php' />";
+if ($_SESSION['profile'] == 'N')
+     exit("Hi, ". htmlspecialchars($_SESSION['login']) .  ". Tell us about yourself. <meta http-equiv='refresh' content='2;url=profile.php' />");
 else if ($_GET['email'] && $_GET['login']) {
     getHead();
     $conn = getDB();

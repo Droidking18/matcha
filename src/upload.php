@@ -5,12 +5,14 @@ session_start();
 include ("header.php");
 include ("merge.php");
 
+
 if (!isset($_SESSION['login'])){
     echo "<meta http-equiv='refresh' content='0;url=login.php' />";
 }
 else
     getLoggedHead();
-
+if ($_SESSION['profile'] == 'N')
+     exit("Hi, ". htmlspecialchars($_SESSION['login']) .  ". Tell us about yourself. <meta http-equiv='refresh' content='2;url=profile.php' />");
 ?>
 
 

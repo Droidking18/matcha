@@ -7,7 +7,9 @@
  if (isset($_SESSION['login']))
 	 getLoggedHead();
  else
-	 exit ("Please login <meta http-equiv='refresh' content='3;url=login.php' />");
+     exit ("Please login <meta http-equiv='refresh' content='3;url=login.php' />");
+ if ($_SESSION['profile'] == 'N')
+     exit("Hi, ". htmlspecialchars($_SESSION['login']) .  ". Tell us about yourself. <meta http-equiv='refresh' content='2;url=profile.php' />");
  if (!isset($_GET['id']))
 	exit ("Bad link <meta http-equiv='refresh' content='3;url=index.php' />"); 
  $conn = getDB();
