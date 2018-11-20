@@ -108,7 +108,7 @@ function changeInput() {
         document.getElementById("password2").value = "";
     }
     if (document.getElementById("typen").checked) {
-        document.getElementById("password2").type = "radio";
+        document.getElementById("password2").type = "text";
         document.getElementById("password2").value = "Y";
         var n = document.createElement("INPUT");
         n.setAttribute("type", "radio");
@@ -129,7 +129,7 @@ Your interests are: "<?php echo htmlspecialchars(implode(" ", unserialize($_SESS
 Your DOB is: "<?php echo htmlspecialchars($_SESSION['dob']); ?>". <br><br>
 Your Display pic is: <img style="height: 30" id='base64image' src= "data:image/png;base64, <?php echo $_SESSION['dp'] ?>"/><br><br>
 To change email address, login or password, enter your current password<br>followed by your new detail, and the appropriate box ticked. If you want to change email notification, only Y or N is accepted<br><br>
-<form id="form" action="change.php" method="POST" onchange="changeInput()" "onsubmit="return checkForm(this, '<?php echo htmlspecialchars($_SESSION['login']); ?>');">
+<form id="form" action="change.php" method="POST" onsubmit="return checkForm(this, '<?php echo htmlspecialchars($_SESSION['login']); ?>');">
     Enter your password:<br>
     <input type="password" name="password" id="password" required><br>
     Enter your new detail and specify the type:<br>
