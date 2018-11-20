@@ -14,12 +14,11 @@ else
  getHead();
 
 
-
 $conn = getDB();
-$sql = "SELECT * FROM images";
-echo "<H1 style='color: white; margin: auto; width: 50%; text-align:center;'> Gallery 📷</H1>";
-echo "<div class='grid-container'>";
-foreach ($conn->query($sql) as $key=>$image)
+//$sql = "SELECT * FROM images";
+echo "<H1 style='color: white; margin: auto; width: 50%; text-align:center;'> Find matches 😍</H1>";
+//echo "<div class='grid-container'>";
+/*foreach ($conn->query($sql) as $key=>$image)
 {
     if ($key < $_GET['page'] * 5 && $key >= $_GET['page'] * 5 - 5)
     {
@@ -37,7 +36,7 @@ if ($_GET['page'] != (int)($key / 5 + 1))
     echo "<a href='index.php?page=" . (int)($key / 5 + 1) ."'> last </a></center>";
 if ($_GET['page'] > (int)($key / 5 + 1))
     exit ("<meta http-equiv='refresh' content='0;url=index.php?page=" . (int)($key / 5 + 1) ."' />");
-
+ */
 
 ?>
 

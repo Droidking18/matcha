@@ -9,15 +9,6 @@ function checkEmail($email)
     	return true;
 }
 
-function checkName($name)
-{
-    $re = "/^[A-Za-z]+$/";
-    if (!preg_match($re, "$name"))
-        return false;
-    else
-        return true;
-}
-
 function checkLogin($login)
 {
 	$re = "/^\w+$/";
@@ -63,7 +54,7 @@ function checkInterest($int){
             return (false);
         $i++;
     }
-    return ($arr);
+    return (serialize($arr));
 }
 
 function checkGen ($gen)
@@ -82,13 +73,27 @@ function checkLoc ($lat, $long) {
 }
 
 function checkBase64 ($b64) {
-    $decoded = base64_decode($b64, true);
-    if (!preg_match('/^[a-zA-Z0-9\/\r\n+]*={0,2}$/', $b64)) 
-        return false;
-    if (!base64_decode($b64, true)) 
-        return false;
-    if (base64_encode($decoded) != $b64) 
-        return false;
+    if ( base64_encode(base64_decode($data, true)) === $data){
     return true;
+    } else {
+    return false;
+    }
 }
+
+function checkDob($date) { 
+    $sec = strtotime ($date);
+    if ($sec > -1325462380 && $sec < 946684820)
+        return true;
+    else
+        return false;
+}
+
+function checkName($name) { 
+    $re = "/^[A-Za-z]+$/";
+    if (preg_match($re, $name) && strlen($name) < 20)
+        return true;
+    else
+        return false;
+}
+
 ?>

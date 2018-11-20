@@ -2,7 +2,11 @@
 session_start();
 
 if (!isset($_SESSION['login']))
-    exit ("Youre not logged in. <meta http-equiv='refresh' content='0;url=login.php' />");
+    exit ("You're not logged in. <meta http-equiv='refresh' content='0;url=login.php' />");
+
+if ($_SESSION['profile'] == "Y")
+    exit ("You've told us about yourself. Go away now. <meta http-equiv='refresh' content='0;url=login.php' />");
+
 
 include ("../config/config.php");
 include ("header.php");
@@ -269,11 +273,18 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
  }
 </script>
 </head>
-<body onload="eventListen(); eventListen1(); eventListen2(); eventListen3(); eventListen4();" background = "https://wallpapertag.com/wallpaper/full/a/d/8/8613-amazing-dark-background-2560x1600-download-free.jpg" style="background-size: cover;">
+<body onload="eventListen(); eventListen1(); eventListen2(); eventListen3(); eventListen4(); getLocation();" background = "https://wallpapertag.com/wallpaper/full/a/d/8/8613-amazing-dark-background-2560x1600-download-free.jpg" style="background-size: cover;">
 <!--<div style="display:flex;justify-content:center;align-items:middle;">-->
 <div style="width: 100%">
 <form action="verifyprofile.php" id="form" method="POST" onsubmit="return checkForm(this);" >
-<input type="date" min="1928-01-01" max="2000-01-01" style="width: 160;"> <br> <br> 
+<font color=white size=1> What's your name? </font>
+<input type="text" name="first_name" style="width:160;"> <br> <br>
+<font color=white size=1> What's your last name? </font>
+<input type="text" name="last_name" style="width:160;"> <br> <br>
+<font color=white size=1> What's your birthday? </font>
+<input type="date" name="dob" min="1928-01-01" max="2000-01-01" style="width: 160;"> <br> <br> 
+<font color=white size=1> Please enter your interests started with '#' e.g. "#gamer #pinappleonpizza #h ..." </font> <br>
+<input style = "width: 25%;" type="text" id="interest" name="interest" required><br><br>
 <font color=white size=1> What's your gender? </font>
 <select name="gender">
   <option value="M">Male</option>
@@ -298,10 +309,9 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 <input type="hidden" name="ph2" id="ph2" required>
 <input type="hidden" name="ph3" id="ph3" required>
 <input type="hidden" name="ph4" id="ph4" required>
-<input style = "width: 100%;" type="text" id="interest" name="interest" placeholder="Please enter your interests started with '#' e.g. #gamer #pinappleonpizza #h ... " required><br><br>
 <input class="button" onclick="getLocation()" type="submit" value="Submit">
 </form>
 </div>
 </body>
-<footer style ="position: fixed; bottom: -400; color: gray; text-align: center;"><hr style="border: 2px solid gray;" />dkaplanⓒ</footer>
+<footer style ="color: gray; text-align: center;"><hr style="border: 2px solid gray;" />dkaplanⓒ</footer>
 </html>

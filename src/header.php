@@ -154,8 +154,13 @@ body {
   . "<center class='welcome' style='display: inline; font-size: 20px; color: gray;'>           Welcome, " . htmlspecialchars($_SESSION['login']) . "! </center>" .
   "<div class='header-right'>
 	<a class='active' href='index.php'>Home</a>
-    <a href='upload.php'>Upload</a>
     <a href='account.php'>Account</a>
+    <a href='notification.php'>";
+if ($_SESSION['notification'] == "Y")
+    echo "YOU HAVE NOTIFICATIONS🔴";
+else
+    echo "No new notifications";
+   echo  "</a>
     <a href='logout.php'>Logout</a>
   </div>
 </div>
