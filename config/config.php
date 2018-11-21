@@ -42,24 +42,25 @@ function createTableDatabase($conn) {
 	$sql="CREATE TABLE IF NOT EXISTS `users` (
 	`id` VARCHAR(100) PRIMARY KEY UNIQUE,
 	`login` VARCHAR(50) NOT NULL UNIQUE,
-        `password` VARCHAR(255) NOT NULL,
-        `first_name` VARCHAR(16) NOT NULL DEFAULT 'NONE',
-        `last_name` VARCHAR(16) NOT NULL DEFAULT 'NONE',
-        `email` VARCHAR(50) NOT NULL UNIQUE,
+    `password` VARCHAR(255) NOT NULL,
+    `first_name` VARCHAR(16) NOT NULL DEFAULT 'NONE',
+    `last_name` VARCHAR(16) NOT NULL DEFAULT 'NONE',
+    `email` VARCHAR(50) NOT NULL UNIQUE,
 	`dp` LONGTEXT NOT NULL,
 	`dob` DATE,
-        `image1` LONGTEXT,
-        `image2` LONGTEXT,
-        `image3` LONGTEXT,
+    `image1` LONGTEXT,
+    `image2` LONGTEXT,
+    `image3` LONGTEXT,
 	`image4` LONGTEXT,
 	`lat` VARCHAR(20),
 	`long` VARCHAR(20),
-        `emailverify` ENUM('N', 'Y') NOT NULL,
-        `gen_pref` ENUM('F', 'M', 'O') NOT NULL,
+    `emailverify` ENUM('N', 'Y') NOT NULL,
+    `gen_pref` ENUM('F', 'M', 'O') NOT NULL,
 	`gen` ENUM('F', 'M', 'O') NOT NULL,
 	`rating` INT,
-        `notification` ENUM('N', 'Y') NOT NULL,
-        `profile` ENUM('N', 'Y') NOT NULL);";
+    `notification` ENUM('N', 'Y') NOT NULL,
+    `notifications` LONGTEXT NOT NULL,
+    `profile` ENUM('N', 'Y') NOT NULL);";
 	$conn->exec($sql);
     echo "Table users created";
     /*$sql="CREATE TABLE IF NOT EXISTS `images` (

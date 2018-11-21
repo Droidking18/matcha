@@ -42,7 +42,7 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 			else
 				echo "Password Incorrect. <meta http-equiv='refresh' content='3;url=login.php' />";
 	}
-	exit();
+	exit("Login incorrect <meta http-equiv='refresh' content='3;url=login.php' />");
 }
 ?>
 <html>
@@ -76,5 +76,5 @@ function passvis() {
 </center>
 </div>
 </body>
-<footer style ="position: fixed; bottom: 100; color: gray; text-align: center;"><hr style="border: 2px solid gray;" />dkaplanⓒ</footer>
+<footer style ="position: relative; bottom: -70%; color: gray; text-align: center;"><hr style="border: 2px solid gray;" />dkaplanⓒ</footer>
 </html>

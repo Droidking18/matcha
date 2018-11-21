@@ -66,7 +66,6 @@ body {
   <a href='https://www.reddit.com/r/PHP/comments/1fy71s/why_do_so_many_developers_hate_php/' class='logo'>
   <img src='https://preview.ibb.co/nBWeEf/logodovi.png' size=800' height='50' ></a>
   <div class='header-right'>
-	<a class='active' href='index.php'>Home</a>
     <a href='login.php'>Login</a>
     <a href='signup.php'>Signup</a>
   </div>
@@ -157,9 +156,9 @@ body {
     <a href='account.php'>Account</a>
     <a href='notification.php'>";
 if ($_SESSION['notification'] == "Y")
-    echo "YOU HAVE NOTIFICATIONS🔴";
+    echo "Notifications🔴 <br> <font size=1> You have noticfications. </font>";
 else
-    echo "No new notifications";
+    echo "Notifications<br> <font size=1> You have no new noticfications. </font>";
    echo  "</a>
     <a href='logout.php'>Logout</a>
   </div>

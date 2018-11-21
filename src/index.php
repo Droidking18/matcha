@@ -9,9 +9,9 @@ if (!isset($_GET['page']) || $_GET['page'] <= 0)
 if ($_SESSION['profile'] == 'N')
 	exit("Hi, ". htmlspecialchars($_SESSION['login']) .  ". Tell us about yourself. <meta http-equiv='refresh' content='2;url=profile.php' />");
 if ($_SESSION['login'])
- getLoggedHead();
+    getLoggedHead();
 else
- getHead();
+	exit ("Please login first. <meta http-equiv='refresh' content='1;url=login.php' />");
 
 
 $conn = getDB();
