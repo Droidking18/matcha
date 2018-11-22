@@ -32,14 +32,14 @@ if (isset($_POST['ph4']))
 else
 	$pic4 = NULL;
 $dp = $_POST['dp'];
-$interest = $_POST['interest'];
+$interest = checkInterest($_POST['interest']);
 
-if (isset($interest) && checkInterest($interest) && isset($long) && isset($lat) && isset($gen) && isset($gen_pref) && checkGen($gen) && checkGen($gen_pref) && isset($dp) && isset($dob) && checkDob($dob)  && isset($first_name) && isset($last_name) && checkName($first_name) && checkName($last_name)) {
+if (isset($interest) && isset($long) && isset($lat) && isset($gen) && isset($gen_pref) && checkGen($gen) && checkGen($gen_pref) && isset($dp) && isset($dob) && checkDob($dob)  && isset($first_name) && isset($last_name) && checkName($first_name) && checkName($last_name)) {
     try  {
         $conn = getDB();
-        $sql = "UPDATE users SET `first_name` = ?, `last_name` = ?, `dp` = ?, `dob` = ?, `image1` = ?, `image2` = ?, `image3` = ?, `image4` = ?, `lat` = ?, `long` = ?, `gen_pref` = ?, gen = ?, profile = ?, notification = ?  WHERE login = ?";
+        $sql = "UPDATE users SET `interests` = ?, `first_name` = ?, `last_name` = ?, `dp` = ?, `dob` = ?, `image1` = ?, `image2` = ?, `image3` = ?, `image4` = ?, `lat` = ?, `long` = ?, `gen_pref` = ?, gen = ?, profile = ?, notification = ?  WHERE login = ?";
         $statement= $conn->prepare($sql);
-        $statement->execute([$first_name, $last_name, $dp, $dob, $pic1, $pic2, $pic3, $pic4, $lat, $long, $gen_pref, $gen, "Y", "Y", $_SESSION['login']]);
+        $statement->execute([$interest, $first_name, $last_name, $dp, $dob, $pic1, $pic2, $pic3, $pic4, $lat, $long, $gen_pref, $gen, "Y", "Y", $_SESSION['login']]);
         $_SESSION['name'] = $first_name;
         $_SESSION['lastname'] = $last_name;
         $_SESSION['dob'] = $dob;
@@ -54,6 +54,8 @@ if (isset($interest) && checkInterest($interest) && isset($long) && isset($lat) 
         $_SESSION['long'] = $long;
         $_SESSION['profile'] = "Y";
         $_SESSION['notification'] = "Y";
+        $_SESSION['interest'] = implode(" ", unserialize(($interest)));
+        $_SESSION['gen'] = $gen;
     } catch (exception $e) {
         echo $e->getMessage() . "\n";
         exit ("Something went wrong, try again <meta http-equiv='refresh' content='3;url=account.php' />"); 

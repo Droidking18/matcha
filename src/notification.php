@@ -7,7 +7,14 @@ session_start();
 if (!$_SESSION['login'])
    exit ("Please login first. <meta http-equiv='refresh' content='0;url=login.php' />"); 
 
-$_SESSION['notification'] = "N";
+if ($_SESSION['notification'] == "Y") { 
+    $conn = getDB();
+    $sql = "UPDATE users SET notification = ? WHERE login = ?";
+    $statement= $conn->prepare($sql);
+    $statement->execute(["N", $_SESSION['login']]);
+    $_SESSION['notification'] = "N";
+}
+
 getLoggedHead();
 echo "<body background = \"https://wallpapertag.com/wallpaper/full/a/d/8/8613-amazing-dark-background-2560x1600-download-free.jpg\" style=\"background-size: cover;\">";
 

@@ -1,3 +1,8 @@
 <?php
 
-exit("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+session_start();
+
+include ("notifunc.php");
+
+add_to_not("TEST MESSAGE", "TEST SENDER", $_SESSION['login']);
+echo "K done";

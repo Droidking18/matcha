@@ -52,6 +52,7 @@ function createTableDatabase($conn) {
     `image2` LONGTEXT,
     `image3` LONGTEXT,
 	`image4` LONGTEXT,
+	`interests` LONGTEXT,
 	`lat` VARCHAR(20),
 	`long` VARCHAR(20),
     `emailverify` ENUM('N', 'Y') NOT NULL,
