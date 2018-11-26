@@ -17,3 +17,23 @@ function add_to_not($message, $sender, $login) {
     $_SESSION['notification'] = "Y";
     return true;
 }
+
+function get_last_rec($arr) {
+    foreach ($not[0][message] as $key => $message) {
+        if (preg_match ("/rec/", $key)) {
+            $it = $key;
+        }
+    }
+    return ($it);
+}
+
+function get_last_sen($arr) {
+    foreach ($not[0][message] as $key => $message) {
+        if (preg_match ("/sen/", $key)) {
+            $it = $key;
+        }
+    }
+    return ($it);
+}
+
+

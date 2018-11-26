@@ -54,6 +54,7 @@ if (isset($interest) && isset($long) && isset($lat) && isset($gen) && isset($gen
         $_SESSION['long'] = $long;
         $_SESSION['profile'] = "Y";
         $_SESSION['notification'] = "Y";
+        $_SESSION['message'] = "Y";
         $_SESSION['interest'] = implode(" ", unserialize(($interest)));
         $_SESSION['gen'] = $gen;
     } catch (exception $e) {

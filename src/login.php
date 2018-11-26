@@ -26,6 +26,7 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 			    	$_SESSION['dp'] = $user['dp'];
 			    	$_SESSION['rating'] = $user['rating'];
 			    	$_SESSION['notification'] = $user['notification'];
+			    	$_SESSION['message'] = $user['message'];
 			    	$_SESSION['lat'] = $user['lat'];
 			    	$_SESSION['long'] = $user['long'];
 			    	$_SESSION['profile'] = $user['profile'];

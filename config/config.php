@@ -60,7 +60,9 @@ function createTableDatabase($conn) {
 	`gen` ENUM('F', 'M', 'O') NOT NULL,
 	`rating` INT,
     `notification` ENUM('N', 'Y') NOT NULL,
+    `message` ENUM('N', 'Y') NOT NULL,
     `notifications` LONGTEXT NOT NULL,
+    `messages` LONGTEXT NOT NULL,
     `profile` ENUM('N', 'Y') NOT NULL);";
 	$conn->exec($sql);
     echo "Table users created";

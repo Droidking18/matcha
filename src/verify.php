@@ -15,14 +15,15 @@ if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email']
         exit ("You got something wrong, and that only happened becuase you played with my JS. Not cool man, not cool. <meta http-equiv='refresh' content='2;url=login.php' />");
     try {
         $conn = getDB();
-        $not = serialize([["message"=>"Welcome, you're now ready to Hinder!", "user"=>"Hinder", "id"=>uniqid("", true)]]);
+        $not = serialize([["message"=>["rec1" => "Welcome, you're now ready to Hinder!"], "user"=>"Hinder Admins", "id"=>uniqid("", true)]]);
+        $mess = serialize([["message"=>"Welcome, you're now ready to Hinder!", "user"=>"Hinder Admins", "id"=>uniqid("", true)]]);
         $hash = password_hash($_POST['password'], PASSWORD_BCRYPT);
         $id = uniqid('', TRUE) . uniqid('', TRUE);
         $login = htmlspecialchars($_POST["login"]);
         $email = htmlspecialchars($_POST["email"]);
-        $sql = "INSERT INTO users (id, login, password, email, notification, notifications, profile, dp) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";               
+        $sql = "INSERT INTO users (id, login, password, email, notification, notifications, profile, dp, message, messages) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $statement= $conn->prepare($sql);
-        $statement->execute([$id, $login, $hash, $email, "Y", $not ,"N", "none"]);
+        $statement->execute([$id, $login, $hash, $email, "Y", $not ,"N", "none", "Y", $mess]);
                  } catch (exception $e) {
                        echo $e->getMessage() . "\n";
                        exit ("Something went wrong, try again <meta http-equiv='refresh' content='3;url=index.php' />");
