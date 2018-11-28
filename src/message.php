@@ -49,8 +49,10 @@ foreach ($conn->query($sql) as $key=>$messages) {
     $message = unserialize($messages['messages']);
     //exit (print_r($message));
     foreach ($message as $messages) {
+        end($messages['message']);
+        //print_r($m
         echo "<table style='width:100%; color: white; background: gray; border: 1px solid black; border-radius: 25px;'>";
-        echo "<tr onclick=\"window.location='chat.php?id=" . $messages['id'] ."';\"> <th>" . htmlspecialchars($messages['user']) . "</th> <th> " . $messages['message'][(key($messages['message']))] . "</th> <th> <a href=?action=delete&id=" . $messages['id'] ."><img src=\"http://www.pngmart.com/files/3/Red-Cross-Transparent-PNG.png\" width=20> </th> </tr>";
+        echo "<tr onclick=\"window.location='chat.php?id=" . $messages['id'] ."';\"> <th>" . htmlspecialchars($messages['user']) . "</th> <th> " . htmlspecialchars($messages['message'][(key($messages['message']))]) . "</th> <th> <a href=?action=delete&id=" . $messages['id'] ."><img src=\"http://www.pngmart.com/files/3/Red-Cross-Transparent-PNG.png\" width=20> </th> </tr>";
         echo "</table>";
     }
 }

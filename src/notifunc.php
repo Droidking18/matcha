@@ -1,6 +1,6 @@
 <?php
 
-include ("../config/config.php");
+//include ("../config/config.php");
 
 function add_to_not($message, $sender, $login) {
     $conn = getDB();

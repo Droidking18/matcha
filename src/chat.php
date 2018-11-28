@@ -3,15 +3,14 @@
 SESSION_START();
 include ("header.php");
 include ("../config/config.php");
+include ("notifunc.php");
 
 if (!isset($_SESSION['login']))
     exit("Go login. exit <meta http-equiv='refresh' content='0;url=login.php'/>");
 
 getLoggedHead();
 
-if (isset($_POST['
-
-if (!isset($_GET['id']))
+if (!isset($_GET['id']) && !isset($_POST['message']))
     exit("Bad link. exit <meta http-equiv='refresh' content='0;url=message.php'/>");
 $exist = -1;
 $conn = getDB();
@@ -29,6 +28,20 @@ foreach ($new as $key=>$thread) {
 if ($exist == -1)
     exit("Bad link. exit <meta http-equiv='refresh' content='0;url=message.php'/>");
 
+//exit (print_r($new[$exist]['user']));
+
+if (isset($_POST['message']) && isset($_POST['user']) && isset($_POST['id'])) {
+    $update = send_message($_POST['user'], $_POST['message'], 0);
+    $update_in = send_message($_POST['user'], $_POST['message'], 1);
+    $sql = "UPDATE users SET messages = ? WHERE login = ?";
+    $statement= $conn->prepare($sql);
+    $statement->execute([$update, $_SESSION['login']]);
+    $sql = "UPDATE users SET messages = ?, message = ?  WHERE login = ?";
+    $statement= $conn->prepare($sql);
+    $statement->execute([$update_in, "Y", $_POST['user']]);
+    exit ("<meta http-equiv='refresh' content='0;url=chat.php?id="  . $_POST['id']  . "'/>");
+}
+    
 ?>
 
 <style>
@@ -76,13 +89,15 @@ if ($exist == -1)
     <?php
     foreach ($new[$key]['message'] as $key => $text)
     {
-        if (preg_match("/rec/", $key))
-             echo "<div style=\"position: relative; display: block; float: left; left: 6%;\" class=\"box sb2\"> $text </div>";
         if (preg_match("/sen/", $key))
-            echo "<div style=\"position: relative; display: block; float: right; right: 6%;\" class=\"box sb1\">$text</div>"; 
+             echo "<div style=\"position: relative; display: block; float: left; left: 6%;\" class=\"box sb2\">" .  htmlspecialchars($text)  . "</div>";
+        if (preg_match("/rec/", $key))
+            echo "<div style=\"position: relative; display: block; float: right; right: 6%;\" class=\"box sb1\">" . htmlspecialchars($text) . "</div>"; 
     }?>
-    <form method="POST" style="padding-top: 100%; position: relative; display: block; margin: auto; width: 10%; padding: 10px;">
-        <input type="text" name="message">
+    <form onsubmit="document.getElementById('user').value = '<?php echo $new[$exist]['user']; ?>'; document.getElementById('id').value = '<?php echo $_GET['id']; ?>'; " method="POST" style="padding-top: 100%; position: relative; display: block; margin: auto; width: 10%; padding: 10px;">
+        <input type="text" name="message" required>
+        <input id="user" type="hidden" name="user">
+        <input id="id" type="hidden" name="id">
         <input type="submit" value="reply">
     </form>
 </div>
