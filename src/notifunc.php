@@ -40,11 +40,11 @@ function get_last_sen($arr) {
     return ($word[0][0] . (string)(int)($number[0][0] + 1));
 }
 
-function send_message($user, $message_user, $) {
+function send_message($user, $message_user, $inverted) {
     $conn = getDB();
     $exist = -1;
-    //$sql = "SELECT messages FROM users WHERE login = \"" . $_SESSION['login'] . "\"";
-    $sql = "SELECT messages FROM users WHERE login = 'dkaplan'";
+    $sql = "SELECT messages FROM users WHERE login = \"" . $_SESSION['login'] . "\"";
+    //$sql = "SELECT messages FROM users WHERE login = 'dkaplan'";
     foreach ($conn->query($sql) as $message) {
         $original = $message['messages'];
     }
@@ -72,25 +72,16 @@ function send_message($user, $message_user, $) {
             $arr[$key] = $arr_new;
         }
     }
-    //$new[$exist] = array_values($invert[$exist]);
     $invert = array_values($new[$exist]['message']);
-    //exit(print_r ($invert));
     foreach($invert as $key => $new_arr) {
         $invert[$arr[$key]] = $new_arr;
         unset($invert[$key]);
     }
-
-    //exit(print_r ($invert));
     $new_invert = $new;
     $new_invert[$exist]['message'] = $invert;
-    print_r($new); echo "<br>";
-    print_r($new_invert); echo "<br>";
+    $new_invert[$exist]['user'] = $_SESSION['login'];
+    if ($inverted == 0)
+        return (serialize($new));
+    else
+        return (serialize($new_invert));
 }
-
-
-$not = ([["message"=>["rec1" => "Welcome, you're now ready to Hinder!", "sen2" => "OK", "rec2" => "no"], "user"=>"Hinder Admins", "id"=>uniqid("", true)]]);
-$not = (["message"=>["rec1" => "Welcome, you're now ready to Hinder!", "sen2" => "OK", "rec2" => "no"]]);
-//echo get_last_sen($not) . "\n";
-//echo get_last_rec($not);
-send_message("Hnder Admins", "what");
-
