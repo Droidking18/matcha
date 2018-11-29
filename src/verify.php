@@ -23,7 +23,7 @@ if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email']
         $email = htmlspecialchars($_POST["email"]);
         $sql = "INSERT INTO users (id, login, password, email, notification, notifications, profile, dp, message, messages) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $statement= $conn->prepare($sql);
-        $statement->execute([$id, $login, $hash, $email, "Y", $not ,"N", "none", "Y", $mess]);
+        $statement->execute([$id, $login, $hash, $email, "Y", $mess ,"N", "none", "Y", $not]);
                  } catch (exception $e) {
                        echo $e->getMessage() . "\n";
                        exit ("Something went wrong, try again <meta http-equiv='refresh' content='3;url=index.php' />");

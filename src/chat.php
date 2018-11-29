@@ -33,6 +33,7 @@ if ($exist == -1)
 if (isset($_POST['message']) && isset($_POST['user']) && isset($_POST['id'])) {
     $update = send_message($_POST['user'], $_POST['message'], 0);
     $update_in = send_message($_POST['user'], $_POST['message'], 1);
+    //exit ($update . "<br>" . $update_in);
     $sql = "UPDATE users SET messages = ? WHERE login = ?";
     $statement= $conn->prepare($sql);
     $statement->execute([$update, $_SESSION['login']]);
@@ -103,5 +104,5 @@ if (isset($_POST['message']) && isset($_POST['user']) && isset($_POST['id'])) {
 </div>
 
 
-<body background = "https://wallpapertag.com/wallpaper/full/a/d/8/8613-amazing-dark-background-2560x1600-download-free.jpg" style="background-size: cover;">
+<body style="background-color:grey;" background = "https://wallpapertag.com/wallpaper/full/a/d/8/8613-amazing-dark-background-2560x1600-download-free.jpg" style="background-size: cover;">
 <footer style ="color: gray; text-align: center; margin-top: 10em;"><hr style="border: 2px solid gray;" />dkaplanⓒ</footer>

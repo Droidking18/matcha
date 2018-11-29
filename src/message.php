@@ -47,7 +47,6 @@ echo "<H1 style='color: white; margin: auto; width: 50%; text-align:center;'> Me
 $sql = "SELECT messages FROM users WHERE login = \"" . $_SESSION['login'] . "\"";
 foreach ($conn->query($sql) as $key=>$messages) {
     $message = unserialize($messages['messages']);
-    //exit (print_r($message));
     foreach ($message as $messages) {
         end($messages['message']);
         //print_r($m

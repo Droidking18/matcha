@@ -19,6 +19,7 @@ function add_to_not($message, $sender, $login) {
 }
 
 function get_last_rec($arr) {
+    $it = -1;
     foreach ($arr[message] as $key => $message) {
         if (preg_match ("/rec/", $key)) {
             $it = $key;
@@ -26,10 +27,13 @@ function get_last_rec($arr) {
     }
     preg_match_all ("/[0-9]+/", $it, $number);
     preg_match_all ("/[a-z]+/", $it, $word);
+    if ($it == -1)
+	    return ("rec1");
     return ($word[0][0] . (string)(int)($number[0][0] + 1));
 }
 
 function get_last_sen($arr) {
+    $it = -1;
     foreach ($arr as $key => $message) {
         if (preg_match ("/sen/", $key)) {
             $it = $key;
@@ -37,6 +41,8 @@ function get_last_sen($arr) {
     }
     preg_match_all ("/[0-9]+/", $it, $number);
     preg_match_all ("/[a-z]+/", $it, $word);
+    if ($it == -1)
+	    return ("sen1");
     return ($word[0][0] . (string)(int)($number[0][0] + 1));
 }
 
@@ -44,7 +50,6 @@ function send_message($user, $message_user, $inverted) {
     $conn = getDB();
     $exist = -1;
     $sql = "SELECT messages FROM users WHERE login = \"" . $_SESSION['login'] . "\"";
-    //$sql = "SELECT messages FROM users WHERE login = 'dkaplan'";
     foreach ($conn->query($sql) as $message) {
         $original = $message['messages'];
     }

@@ -15,17 +15,17 @@ else
 
 
 $conn = getDB();
-//$sql = "SELECT * FROM images";
+$sql = "SELECT * FROM users";
 echo "<H1 style='color: white; margin: auto; width: 50%; text-align:center;'> Find matches 😍</H1>";
-//echo "<div class='grid-container'>";
-/*foreach ($conn->query($sql) as $key=>$image)
+echo "<div class='grid-container'>";
+foreach ($conn->query($sql) as $key=>$profile)
 {
     if ($key < $_GET['page'] * 5 && $key >= $_GET['page'] * 5 - 5)
     {
         echo "<div class='grid-item'> <a href='action.php?id=" . $image['id'] . "'><img class='photo' id='base64image'                 
           src='" .  $image['image'] . "' /></a></div>";
     }
-}
+}/*
 echo "</div><br><br>";
 echo "<center style='color: white;'> page <a href='index.php?page=1'> 1 </a>";
 if ($_GET['page'] != 1)
