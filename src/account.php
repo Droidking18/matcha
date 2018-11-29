@@ -273,7 +273,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
  }
 </script>
 </head>
-<body onload="eventListen(); eventListen1(); eventListen2(); eventListen3(); eventListen4(); getLocation();" background = "https://wallpapertag.com/wallpaper/full/a/d/8/8613-amazing-dark-background-2560x1600-download-free.jpg" style="background-size: cover;">
+<body onload="eventListen(); eventListen1(); eventListen2(); eventListen3(); eventListen4(); getLocation();" style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">
 <!--<div style="display:flex;justify-content:center;align-items:middle;">-->
 <div style="width: 100%">
 <form action="verifyprofile.php" id="form" method="POST" onsubmit="return checkForm(this);" >

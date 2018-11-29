@@ -104,5 +104,5 @@ if (isset($_POST['message']) && isset($_POST['user']) && isset($_POST['id'])) {
 </div>
 
 
-<body style="background-color:grey;" background = "https://wallpapertag.com/wallpaper/full/a/d/8/8613-amazing-dark-background-2560x1600-download-free.jpg" style="background-size: cover;">
+<body style="background-color:grey;" style="background-size: cover;">
 <footer style ="color: gray; text-align: center; margin-top: 10em;"><hr style="border: 2px solid gray;" />dkaplanⓒ</footer>

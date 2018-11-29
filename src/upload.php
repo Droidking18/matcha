@@ -20,7 +20,7 @@ if ($_SESSION['profile'] == 'N')
 <head>
 <meta charset="UTF-8">
 </head>
-<body background = "https://wallpapertag.com/wallpaper/full/a/d/8/8613-amazing-dark-background-2560x1600-download-free.jpg" style="background-size: cover;">
+<body style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">
 <center>
 <div style="position: relative; text-align: center; color: white;">
         <video poster="https://nestify.io/wp-content/uploads/2016/06/php-sucks.png" autoplay="true" style="width:70%;" id="video">Failure</video>

@@ -16,8 +16,7 @@ if ($_SESSION['notification'] == "Y") {
 }
 
 getLoggedHead();
-echo "<body background = \"https://wallpapertag.com/wallpaper/full/a/d/8/8613-amazing-dark-background-2560x1600-download-free.jpg\" style=\"background-size: cover;\">";
-
+ echo "<body style='background-color:gray'>";
 
 if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == "delete"){
     $conn = getDB();
@@ -47,7 +46,7 @@ $sql = "SELECT notifications FROM users WHERE login = \"" . $_SESSION['login'] .
 foreach ($conn->query($sql) as $key=>$notifications) {
     $notification = unserialize($notifications['notifications']);
     foreach ($notification as $notifications) {
-        echo "<table style='width:100%; color: white; background: gray; border: 1px solid black; border-radius: 25px;'>";
+        echo "<table style='width:100%; color: white; background: black; border: 1px solid black; border-radius: 25px;'>";
         echo "<tr> <th>" . $notifications['user'] . "</th> <th> " . htmlspecialchars($notifications['message']) . "</th> <th> <a href=?action=delete&id=" . $notifications['id'] ."><img src=\"http://www.pngmart.com/files/3/Red-Cross-Transparent-PNG.png\" width=20> </th> </tr>";
         echo "</table>";
     }

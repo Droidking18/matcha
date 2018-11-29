@@ -62,7 +62,7 @@ function passvis() {
 }
 </script>
 </head>
-<body background = "https://wallpapertag.com/wallpaper/full/a/d/8/8613-amazing-dark-background-2560x1600-download-free.jpg" style="background-size: cover;">
+<body style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">
 <div class="center">
 <center id="login">
 <form action="login.php" method="POST">

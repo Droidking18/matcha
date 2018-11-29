@@ -107,7 +107,7 @@ $sql = "SELECT * FROM images WHERE id='" . $_GET['id'] . "';";
 ?>
 
 <html>
-<body background = "https://wallpapertag.com/wallpaper/full/a/d/8/8613-amazing-dark-background-2560x1600-download-free.jpg" style="background-size: cover;">
+<body style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">
 </body>
 <center style="color: white;">
 <form method="POST">
