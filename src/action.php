@@ -1,6 +1,9 @@
 <?php
 
 session_start();
+
+
+include("message_check.php");
 include("header.php");
 include ("../config/config.php");
 include ("mail.php");

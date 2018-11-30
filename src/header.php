@@ -16,6 +16,7 @@ body {
 .header {
   overflow: hidden;
   padding: 20px 10px;
+  background-color: black;
 }
 
 .header a {
@@ -95,6 +96,7 @@ body {
   overflow: hidden;
   padding: 20px 10px;
   /*position: relative;*/
+  background-color: black;
 }
 
 .header a {

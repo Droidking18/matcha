@@ -7,6 +7,10 @@ error_reporting(E_ALL);
 
 session_start();
 
+include("message_check.php");
+
+include("message_check.php");
+
 if ($_SESSION['profile'] == 'N')
     exit("Hi, ". htmlspecialchars($_SESSION['login']) .  ". Tell us about yourself. <meta http-equiv='refresh' content='2;url=profile.php' />");
 

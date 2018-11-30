@@ -4,6 +4,8 @@ include ("header.php");
 include ("../config/config.php");
 session_start();
 
+include("message_check.php");
+
 if (!$_SESSION['login'])
    exit ("Please login first. <meta http-equiv='refresh' content='0;url=login.php' />"); 
 
@@ -42,6 +44,7 @@ if (isset($_GET['id']) && isset($_GET['action']) && $_GET['action'] == "delete")
 
 $conn = getDB();
 echo "<div style=\"width:80%; margin:0 auto;\">";
+echo "<H1 style='color: white; margin: auto; width: 50%; text-align:center;'> Notifications 🗯</H1>";
 $sql = "SELECT notifications FROM users WHERE login = \"" . $_SESSION['login'] . "\"";
 foreach ($conn->query($sql) as $key=>$notifications) {
     $notification = unserialize($notifications['notifications']);

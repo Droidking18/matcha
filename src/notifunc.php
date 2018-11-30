@@ -2,6 +2,8 @@
 
 //include ("../config/config.php");
 
+
+
 function add_to_not($message, $sender, $login) {
     $conn = getDB();
     $sql = "SELECT notifications FROM users WHERE login = \"" . $login . "\"";

@@ -4,6 +4,8 @@ include ("header.php");
 include ("../config/config.php");
 session_start();
 
+include("message_check.php");
+
 if (!$_SESSION['login'])
    exit ("Please login first. <meta http-equiv='refresh' content='0;url=login.php' />"); 
 

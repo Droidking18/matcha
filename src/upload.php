@@ -2,6 +2,8 @@
 
 session_start();
 
+include("message_check.php");
+
 include ("header.php");
 include ("merge.php");
 

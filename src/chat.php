@@ -1,6 +1,8 @@
 <?php
 
-SESSION_START();
+session_start();
+
+include("message_check.php");
 include ("header.php");
 include ("../config/config.php");
 include ("notifunc.php");
@@ -24,6 +26,7 @@ foreach ($new as $key=>$thread) {
     {
         $exist = $key;
     }
+    echo "<u><p style='color: lightgray; margin: auto; width: 50%; text-align:center;font-size: 23;'> You're chatting to " .  $new[$exist]['user'] . "</p></u>";
 }
 if ($exist == -1)
     exit("Bad link. exit <meta http-equiv='refresh' content='0;url=message.php'/>");
@@ -33,7 +36,6 @@ if ($exist == -1)
 if (isset($_POST['message']) && isset($_POST['user']) && isset($_POST['id'])) {
     $update = send_message($_POST['user'], $_POST['message'], 0);
     $update_in = send_message($_POST['user'], $_POST['message'], 1);
-    //exit ($update . "<br>" . $update_in);
     $sql = "UPDATE users SET messages = ? WHERE login = ?";
     $statement= $conn->prepare($sql);
     $statement->execute([$update, $_SESSION['login']]);

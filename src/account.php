@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+include("message_check.php");
+
 if (!isset($_SESSION['login']))
     exit ("You're not logged in. <meta http-equiv='refresh' content='0;url=login.php' />");
 

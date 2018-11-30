@@ -4,6 +4,8 @@ include ("header.php");
 include ("../config/config.php");
 session_start();
 
+include("message_check.php");
+
 if (!isset($_GET['page']) || $_GET['page'] <= 0)
 	exit ("<meta http-equiv='refresh' content='0;url=index.php?page=1' />");
 if ($_SESSION['profile'] == 'N')

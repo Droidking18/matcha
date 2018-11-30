@@ -1,6 +1,8 @@
 <?php
 
 session_start();
+
+include("message_check.php");
 include ("backcheck.php");
 include ("../config/config.php");
 
