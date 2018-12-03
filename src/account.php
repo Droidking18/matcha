@@ -274,6 +274,13 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
    reader.readAsBinaryString(f);
  }
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script>
+ setInterval(function () { $.ajax({
+     url: 'online.php',
+     success: function(){}
+ }); }, 5000);
+ </script>
 </head>
 <body onload="eventListen(); eventListen1(); eventListen2(); eventListen3(); eventListen4(); getLocation();" style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">
 <!--<div style="display:flex;justify-content:center;align-items:middle;">-->

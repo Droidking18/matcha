@@ -158,15 +158,15 @@ body {
     <a href='account.php'>Account</a>
     <a href='notification.php'>";
 if ($_SESSION['notification'] == "Y")
-    echo "Notifications🔴 <br> <font size=1> You have notifications. </font>";
+    echo "Notifications🔴 <br> <font size=1 id='not'> You have notifications. </font>";
 else
-    echo "Notifications<br> <font size=1> You have no new notifications. </font>";
+    echo "Notifications<br> <font size=1 id='not'> You have no new notifications. </font>";
     echo  "</a>";
     echo "<a href='message.php'>";
 if ($_SESSION['message'] == "Y")
-    echo "Messages🔴 <br> <font size=1> You have messages. </font>";
+    echo "Messages🔴 <br> <font size=1 id='mes'> You have messages. </font>";
 else
-    echo "Messages<br> <font size=1> You have no new messages. </font>";
+    echo "Messages<br> <font size=1 id='mes'> You have no new messages. </font>";
     echo  "</a>
     <a href='logout.php'>Logout</a>
   </div>

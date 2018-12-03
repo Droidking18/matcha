@@ -26,7 +26,8 @@ foreach ($new as $key=>$thread) {
     {
         $exist = $key;
     }
-    echo "<u><p style='color: lightgray; margin: auto; width: 50%; text-align:center;font-size: 23;'> You're chatting to " .  $new[$exist]['user'] . "</p></u>";
+    $_SESSION['person'] = $new[$exist]['user'];
+        echo "<u><p id='person' style='color: lightgray; margin: auto; width: 50%; text-align:center;font-size: 18;'>" .  $_SESSION['person']  . "</p></u>";
 }
 if ($exist == -1)
     exit("Bad link. exit <meta http-equiv='refresh' content='0;url=message.php'/>");
@@ -87,6 +88,19 @@ if (isset($_POST['message']) && isset($_POST['user']) && isset($_POST['id'])) {
 }
 
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script>
+ setInterval(function () { $.ajax({
+     url: 'online.php',
+     success: function(){}
+ }); }, 5000);
+
+ setInterval(function () { $.ajax({
+     url: 'checkon.php',
+     data: { },
+     success: function(data){ $("#person").html(data);}
+ }); }, 5000);
+ </script>
 
 <div class="container">
     <?php

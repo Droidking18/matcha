@@ -53,6 +53,7 @@ function createTableDatabase($conn) {
     `image3` LONGTEXT,
 	`image4` LONGTEXT,
 	`interests` LONGTEXT,
+	`visits` LONGTEXT,
 	`lat` VARCHAR(20),
 	`long` VARCHAR(20),
     `emailverify` ENUM('N', 'Y') NOT NULL,
@@ -63,6 +64,7 @@ function createTableDatabase($conn) {
     `message` ENUM('N', 'Y') NOT NULL,
     `notifications` LONGTEXT NOT NULL,
     `messages` LONGTEXT NOT NULL,
+    `online` VARCHAR(16) NOT NULL,
     `profile` ENUM('N', 'Y') NOT NULL);";
 	$conn->exec($sql);
     echo "Table users created";

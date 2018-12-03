@@ -4,8 +4,6 @@ include ("header.php");
 include ("../config/config.php");
 session_start();
 
-include("message_check.php");
-
 if (!isset($_GET['page']) || $_GET['page'] <= 0)
 	exit ("<meta http-equiv='refresh' content='0;url=index.php?page=1' />");
 if ($_SESSION['profile'] == 'N')
@@ -27,19 +25,7 @@ foreach ($conn->query($sql) as $key=>$profile)
         echo "<div class='grid-item'> <a href='action.php?id=" . $image['id'] . "'><img class='photo' id='base64image'                 
           src='" .  $image['image'] . "' /></a></div>";
     }
-}/*
-echo "</div><br><br>";
-echo "<center style='color: white;'> page <a href='index.php?page=1'> 1 </a>";
-if ($_GET['page'] != 1)
-    echo "<a href='index.php?page=" . ($_GET['page'] - 1) . "'> prev </a>";
-if (($_GET['page'] + 1) <= (int)($key / 5 + 1))
-    echo "<a href='index.php?page=" . ($_GET['page'] + 1) . "'> next </a>";
-if ($_GET['page'] != (int)($key / 5 + 1))
-    echo "<a href='index.php?page=" . (int)($key / 5 + 1) ."'> last </a></center>";
-if ($_GET['page'] > (int)($key / 5 + 1))
-    exit ("<meta http-equiv='refresh' content='0;url=index.php?page=" . (int)($key / 5 + 1) ."' />");
- */
-
+}
 ?>
 
 <html>
@@ -61,6 +47,13 @@ if ($_GET['page'] > (int)($key / 5 + 1))
     width: 100%;
 }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script>
+ setInterval(function () { $.ajax({
+     url: 'online.php',
+     success: function(){}
+ }); }, 5000);
+ </script>
 <body style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">
 </body>
 <footer style ="color: gray; text-align: center; margin-top: 10em;"><hr style="border: 2px solid gray;" />dkaplanⓒ</footer>
