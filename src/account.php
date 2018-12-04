@@ -306,7 +306,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
   <option value="O" <?php if ($_SESSION['gen_pref'] == "O") echo "selected"; ?>>Non-binary</option>
 </select> <br> <br>
 <font color="white" size =1>Your Display pic is:</font> <img style="height: 30" id='base64image' src= "data:image/png;base64, <?php echo $_SESSION['dp'] ?>"/><br><br>
-<input type="file" name="dph" accept="image/png" id="dph" color="white" required> <font size=1 color="white"> Upload a profile picture of yourself. (required)</font> <br><br>
+<input type="file" name="dph" accept="image/png" id="dph" color="white"> <font size=1 color="white"> Upload a profile picture of yourself. (required)</font> <br><br>
 <?php if ($_SESSION['ph1']) echo "<font color='white' size=1>Your Display pic is:</font> <img style='height: 30' id='base64image' src= 'data:image/png;base64," .  $_SESSION['ph1'] . "'/>"; else echo "<font size = 1 color ='white'> No image set for image 2. </font>" ?> <br><br>
 <input type="file" name="pho1" accept="image/png" id="photo1" color="white"> <font size=1 color="white"> Upload some images of yourself. (not required)</font> <br><br>
 <?php if ($_SESSION['ph2']) echo "<font color='white' size=1>Your Display pic is:</font> <img style='height: 30' id='base64image' src= 'data:image/png;base64," .  $_SESSION['ph2'] . "'/>"; else echo "<font size = 1 color ='white'> No image set for image 3. </font>" ?> <br><br>

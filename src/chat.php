@@ -26,14 +26,13 @@ foreach ($new as $key=>$thread) {
     {
         $exist = $key;
     }
-    $_SESSION['person'] = $new[$exist]['user'];
-        echo "<u><p id='person' style='color: lightgray; margin: auto; width: 50%; text-align:center;font-size: 18;'>" .  $_SESSION['person']  . "</p></u>";
+        $_SESSION['person'] = $new[$exist]['user'];
+        echo "<u><p style='color: lightgray; margin: auto; width: 50%; text-align:center;font-size: 18;'>" .  $_SESSION['person']  . "</p></u><p id='person' style='color: lightgray; margin: auto; width: 50%; text-align:center;font-size: 18;'></p></u>";
 }
 if ($exist == -1)
     exit("Bad link. exit <meta http-equiv='refresh' content='0;url=message.php'/>");
 
 //exit (print_r($new[$exist]['user']));
-
 if (isset($_POST['message']) && isset($_POST['user']) && isset($_POST['id'])) {
     $update = send_message($_POST['user'], $_POST['message'], 0);
     $update_in = send_message($_POST['user'], $_POST['message'], 1);
@@ -95,8 +94,8 @@ if (isset($_POST['message']) && isset($_POST['user']) && isset($_POST['id'])) {
      success: function(){}
  }); }, 5000);
 
- setInterval(function () { $.ajax({
-     url: 'checkon.php',
+setInterval(function () { $.ajax({
+    url: 'checkon.php?user=<?php echo $new[$exist]['user'];?>',
      data: { },
      success: function(data){ $("#person").html(data);}
  }); }, 5000);

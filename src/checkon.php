@@ -3,15 +3,16 @@
 session_start();
 include ("../config/config.php");
 
+
 $conn = getDB();
-$sql = "SELECT online FROM users WHERE login = \"$_SESSION[person]\"";
+$sql = "SELECT online, rating FROM users WHERE login = \"$_GET[user]\"";
 foreach ($conn->query($sql) as $online) {
     $last = $online['online'];
 }
 
 if (!isset($last) || $last == 0)
-    echo ($_SESSION['person']);
+    echo ("");
 else if (mktime() - $last <= 9)
-    echo ($_SESSION['person'] . "🔵");
+    echo ("<b><u> 🔵" . "Rating:" . $online['rating'] . ". Currently online.</b></u>");
 else
-    echo ($_SESSION['person'] . " last seen on " . date("j F Y h:i:s A", $last + 36000));
+    echo ("<b><u> last seen on " . date("j F Y h:i:s A", $last + 36000) . "</b></u>");

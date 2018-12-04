@@ -17,23 +17,36 @@ $dob = ($_POST['dob']);
 $first_name = ucfirst(strtolower($_POST['first_name']));
 $last_name = ucfirst(strtolower($_POST['last_name']));
 $gen_pref = $_POST['gender-pref'];
-if (isset($_POST['ph1']))
-	$pic1 = $_POST['ph1'];
+if (isset($_POST['ph1']) && strlen($_POST['ph1']) > 16) {
+    $pic1 = $_POST['ph1'];
+    $_SESSION['ph1'] = $pic1;
+}
 else
-	$pic1 = NULL;
-if (isset($_POST['ph2']))
-	$pic2 = $_POST['ph2'];
+	$pic1 = $_SESSION['ph1'];
+if (isset($_POST['ph2']) && strlen($_POST['ph2']) > 16) {
+    $pic2 = $_POST['ph2'];
+    $_SESSION['ph2'] = $pic2;
+}
 else
-	$pic2 = NULL;
-if (isset($_POST['ph3']))
-	$pic3 = $_POST['ph3'];
+	$pic2 = $_SESSION['ph2'];
+if (isset($_POST['ph3']) && strlen($_POST['ph3']) > 16) {
+    $pic3 = $_POST['ph3'];
+    $_SESSION['ph3'] = $pic3;
+}
 else
-	$pic3 = NULL;
-if (isset($_POST['ph4']))
-	$pic4 = $_POST['ph4'];
+	$pic3 = $_SESSION['ph3'];
+if (isset($_POST['ph4']) && strlen($_POST['ph4']) > 16) {
+    $pic4 = $_POST['ph4'];
+    $_SESSION['ph4'] = $pic4;
+}
 else
-	$pic4 = NULL;
-$dp = $_POST['dp'];
+	$pic4 = $_SESSION['ph4'];
+if (isset($_POST['dp']) && strlen($_POST['dp']) > 16) {
+    $dp = $_POST['dp'];
+    $_SESSION['dp'] = $dp;
+}
+else
+    $dp = $_SESSION['dp'];
 $interest = checkInterest($_POST['interest']);
 
 if (isset($interest) && isset($long) && isset($lat) && isset($gen) && isset($gen_pref) && checkGen($gen) && checkGen($gen_pref) && isset($dp) && isset($dob) && checkDob($dob)  && isset($first_name) && isset($last_name) && checkName($first_name) && checkName($last_name)) {
