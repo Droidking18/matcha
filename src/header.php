@@ -156,17 +156,18 @@ body {
   "<div class='header-right'>
 	<a class='active' href='index.php'>Home</a>
     <a href='account.php'>Account</a>
+    <a href='search.php'>Search</a>
     <a href='notification.php'>";
 if ($_SESSION['notification'] == "Y")
-    echo "Notifications🔴 <br> <font size=1 id='not'> You have notifications. </font>";
+    echo "<div id='not'> Notifications🔴 <br> <font size=1> You have notifications. </font></div>";
 else
-    echo "Notifications<br> <font size=1 id='not'> You have no new notifications. </font>";
+    echo "<div id='not'> Notifications<br> <font size=1 > You have no new notifications. </font></div>";
     echo  "</a>";
     echo "<a href='message.php'>";
 if ($_SESSION['message'] == "Y")
-    echo "Messages🔴 <br> <font size=1 id='mes'> You have messages. </font>";
+    echo "<div id='mes'> Messages🔴 <br> <font size=1> You have messages. </font></div>";
 else
-    echo "Messages<br> <font size=1 id='mes'> You have no new messages. </font>";
+    echo "<div id='mes'>Messages<br> <font size=1 > You have no new messages. </font></div>";
     echo  "</a>
     <a href='logout.php'>Logout</a>
   </div>

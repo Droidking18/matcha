@@ -58,6 +58,7 @@ else
 echo "</div>";
 echo "</div>";
 
+echo "<div>";
 echo "<div style='overflow-wrap: break-word;'>";
 echo "<p style='text-align: center;'><b><u>$user[first_name] $user[last_name] (aka $user[login])</p><p id='on' style='text-align: center;'> loading current state... </p></b></u><ul>";
 echo "<li>Gender is ";
@@ -75,10 +76,11 @@ else
     echo "the other.<\li>";
 echo "<li>" . age_calc($user['dob']) . " years old. ($user[dob])</li>";
 echo "<li>Interests:  " . implode(", ", unserialize($user['interests'])) . "</li>";
-echo "<img src=\"http://maps.googleapis.com/maps/api/staticmap?center=" . $user['long'] . "," . $user['lat'] ."&zoom=11&size=200x200&sensor=false\">";
-    echo "</div>";
+//echo "</div>";
+echo "</div>";
+
 ?>
-<body style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">
+<body onload="initMap()" style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">
 
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmYL_RYUuIyQfN_Qjvyoh5ShExlX4yaNU&callback=initMap" type="text/javascript"></script>
@@ -93,4 +95,38 @@ echo "<img src=\"http://maps.googleapis.com/maps/api/staticmap?center=" . $user[
       data: { },
       success: function(data){ $("#on").html(data);}
   }); }, 5000);
+  setInterval(function () { $.ajax({
+      url: 'checknot.php?',
+      data: { },
+      success: function(data){ $("#not").html(data);}
+  }); }, 5000);
+  setInterval(function () { $.ajax({
+      url: 'checkmes.php?',
+      data: { },
+      success: function(data){ $("#mes").html(data);}
+  }); }, 5000);
+
+  var map;
+  function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: <?php echo $user['lat']; ?>, lng: <?php echo $user['long']; ?>},
+    zoom: 15
+    });
+  }
 </script>
+<div style="height: 50%"id="map"></div>
+<div style="text-align:center; margin-left:auto; margin-right:auto;">
+<form method="get" action="like.php?user=<?php echo $user['login']; ?>&action=like">
+    <button type='submit'>Like 💑</button>
+</form>
+<form method="post" action="chatadd.php?user=<?php echo $user['login']; ?>">
+    <input name="message" style="width: 400;" type "text" value="Hi <?php echo $user['first_name']; ?>, my name is <?php echo $_SESSION['name']; ?> and I want to chat!" required><br>
+    <button type='submit'>Chat 💬</button>
+</form>
+<form method="get" action="like.php?user=<?php echo $user['login']; ?>&action=dislike">
+    <button type='submit'>Dislike 😢</button>
+</form>
+<form method="get" action="block.php?user=<?php echo $user['login']; ?>">
+    <button type='submit'>Report and block user 🤬</button>
+</form>
+</div>

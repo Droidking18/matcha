@@ -9,13 +9,11 @@ include("message_check.php");
 if (!$_SESSION['login'])
    exit ("Please login first. <meta http-equiv='refresh' content='0;url=login.php' />"); 
 
-if ($_SESSION['message'] == "Y") { 
     $conn = getDB();
     $sql = "UPDATE users SET message = ? WHERE login = ?";
     $statement= $conn->prepare($sql);
     $statement->execute(["N", $_SESSION['login']]);
     $_SESSION['message'] = "N";
-}
 
 getLoggedHead();
 echo "<body style='background-color:gray'>";
@@ -68,4 +66,14 @@ echo "</div>";
      url: 'online.php',
      success: function(){}
  }); }, 5000);
+   setInterval(function () { $.ajax({
+       url: 'checknot.php?',
+       data: { },
+       success: function(data){ $("#not").html(data);}
+   }); }, 5000);
+   setInterval(function () { $.ajax({
+       url: 'checkmes.php?',
+       data: { },
+       success: function(data){ $("#mes").html(data);}
+   }); }, 5000);
  </script>

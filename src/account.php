@@ -280,6 +280,16 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
      url: 'online.php',
      success: function(){}
  }); }, 5000);
+   setInterval(function () { $.ajax({
+       url: 'checknot.php?',
+       data: { },
+       success: function(data){ $("#not").html(data);}
+   }); }, 5000);
+   setInterval(function () { $.ajax({
+       url: 'checkmes.php?',
+       data: { },
+       success: function(data){ $("#mes").html(data);}
+   }); }, 5000);
  </script>
 </head>
 <body onload="eventListen(); eventListen1(); eventListen2(); eventListen3(); eventListen4(); getLocation();" style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">

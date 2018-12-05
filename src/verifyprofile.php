@@ -54,7 +54,7 @@ if (isset($interest) && isset($long) && isset($lat) && isset($gen) && isset($gen
         $conn = getDB();
         $sql = "UPDATE users SET `interests` = ?, `first_name` = ?, `last_name` = ?, `dp` = ?, `dob` = ?, `image1` = ?, `image2` = ?, `image3` = ?, `image4` = ?, `lat` = ?, `long` = ?, `gen_pref` = ?, gen = ?, profile = ?, notification = ?  WHERE login = ?";
         $statement= $conn->prepare($sql);
-        $statement->execute([$interest, $first_name, $last_name, $dp, $dob, $pic1, $pic2, $pic3, $pic4, $lat, $long, $gen_pref, $gen, "Y", "Y", $_SESSION['login']]);
+        $statement->execute([$interest, $first_name, $last_name, $dp, $dob, $pic1, $pic2, $pic3, $pic4, $lat, $long, $gen_pref, $gen, "Y", "N", $_SESSION['login']]);
         $_SESSION['name'] = $first_name;
         $_SESSION['lastname'] = $last_name;
         $_SESSION['dob'] = $dob;
@@ -68,8 +68,6 @@ if (isset($interest) && isset($long) && isset($lat) && isset($gen) && isset($gen
         $_SESSION['lat'] = $lat;
         $_SESSION['long'] = $long;
         $_SESSION['profile'] = "Y";
-        $_SESSION['notification'] = "Y";
-        $_SESSION['message'] = "Y";
         $_SESSION['interest'] = implode(" ", unserialize(($interest)));
         $_SESSION['gen'] = $gen;
     } catch (exception $e) {

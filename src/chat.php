@@ -98,18 +98,36 @@ setInterval(function () { $.ajax({
     url: 'checkon.php?user=<?php echo $new[$exist]['user'];?>',
      data: { },
      success: function(data){ $("#person").html(data);}
- }); }, 5000);
+}); }, 5000);
+   setInterval(function () { $.ajax({
+       url: 'checknot.php?',
+       data: { },
+       success: function(data){ $("#not").html(data);}
+   }); }, 5000);
+   setInterval(function () { $.ajax({
+       url: 'checkmes.php?',
+       data: { },
+       success: function(data){ $("#mes").html(data);}
+   }); }, 5000);
+     setInterval(function () { $.ajax({
+       url: 'chatload.php?',
+       data: { },
+       success: function(data){ $("#chat").html(data);}
+   }); }, 5000);
+
  </script>
 
 <div class="container">
     <?php
+    echo "<div id='chat'>";
     foreach ($new[$key]['message'] as $key => $text)
     {
         if (preg_match("/sen/", $key))
              echo "<div style=\"position: relative; display: block; float: left; left: 6%;\" class=\"box sb2\">" .  htmlspecialchars($text)  . "</div>";
         if (preg_match("/rec/", $key))
             echo "<div style=\"position: relative; display: block; float: right; right: 6%;\" class=\"box sb1\">" . htmlspecialchars($text) . "</div>"; 
-    }?>
+    }
+    echo "</div>";?>
     <form onsubmit="document.getElementById('user').value = '<?php echo $new[$exist]['user']; ?>'; document.getElementById('id').value = '<?php echo $_GET['id']; ?>'; " method="POST" style="padding-top: 100%; position: relative; display: block; margin: auto; width: 10%; padding: 10px;">
         <input type="text" name="message" required>
         <input id="user" type="hidden" name="user">
