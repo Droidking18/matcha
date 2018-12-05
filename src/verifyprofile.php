@@ -9,6 +9,7 @@ include ("../config/config.php");
 //Array ( [gender] => M [gender-pref] => F [dph] => logodovi.png [pho1] => [pho2] => [pho3] => [pho4] => [long] => Longitude location is 27.8962176 [lat] => Longitude location is -26.148864 [dp] => 'base64string.. very long' [ph1] => [ph2] => [ph3] => [ph4] => [interest] => #yes )
 
 
+//exit (print_r($_SESSION));
 
 $gen = $_POST['gender'];
 $lat = $_POST['lat'];
@@ -48,6 +49,7 @@ if (isset($_POST['dp']) && strlen($_POST['dp']) > 16) {
 else
     $dp = $_SESSION['dp'];
 $interest = checkInterest($_POST['interest']);
+
 
 if (isset($interest) && isset($long) && isset($lat) && isset($gen) && isset($gen_pref) && checkGen($gen) && checkGen($gen_pref) && isset($dp) && isset($dob) && checkDob($dob)  && isset($first_name) && isset($last_name) && checkName($first_name) && checkName($last_name)) {
     try  {

@@ -202,7 +202,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 
 function eventListen2() {
 if (window.File && window.FileReader && window.FileList && window.Blob) {
-   document.getElementById('photo2').addEventListener('change', handleFileSelect1, false);
+   document.getElementById('photo2').addEventListener('change', handleFileSelect2, false);
  } else {
    alert('The File APIs are not fully supported in this browser.');
  }}
@@ -218,6 +218,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
        var binaryData = e.target.result;
        var base64String = (window.btoa(binaryData));
        document.getElementById('ph2').value = base64String;
+       document.getElementById('ph2').value = base64String;
        console.log (base64String);
      };
    })(f);
@@ -227,7 +228,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 
 function eventListen3() {
 if (window.File && window.FileReader && window.FileList && window.Blob) {
-   document.getElementById('photo3').addEventListener('change', handleFileSelect1, false);
+   document.getElementById('photo3').addEventListener('change', handleFileSelect3, false);
  } else {
    alert('The File APIs are not fully supported in this browser.');
  }}
@@ -252,7 +253,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 
 function eventListen4() {
 if (window.File && window.FileReader && window.FileList && window.Blob) {
-   document.getElementById('photo4').addEventListener('change', handleFileSelect1, false);
+   document.getElementById('photo4').addEventListener('change', handleFileSelect4, false);
  } else {
    alert('The File APIs are not fully supported in this browser.');
  }}
@@ -317,22 +318,22 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 </select> <br> <br>
 <font color="white" size =1>Your Display pic is:</font> <img style="height: 30" id='base64image' src= "data:image/png;base64, <?php echo $_SESSION['dp'] ?>"/><br><br>
 <input type="file" name="dph" accept="image/png" id="dph" color="white"> <font size=1 color="white"> Upload a profile picture of yourself. (required)</font> <br><br>
-<?php if ($_SESSION['ph1']) echo "<font color='white' size=1>Your Display pic is:</font> <img style='height: 30' id='base64image' src= 'data:image/png;base64," .  $_SESSION['ph1'] . "'/>"; else echo "<font size = 1 color ='white'> No image set for image 2. </font>" ?> <br><br>
+<?php if ($_SESSION['ph1']) echo "<font color='white' size=1>Your pic 1 is:</font> <img style='height: 30' id='base64image' src= 'data:image/png;base64," .  $_SESSION['ph1'] . "'/>"; else echo "<font size = 1 color ='white'> No image set for image 1. </font>" ?> <br><br>
 <input type="file" name="pho1" accept="image/png" id="photo1" color="white"> <font size=1 color="white"> Upload some images of yourself. (not required)</font> <br><br>
-<?php if ($_SESSION['ph2']) echo "<font color='white' size=1>Your Display pic is:</font> <img style='height: 30' id='base64image' src= 'data:image/png;base64," .  $_SESSION['ph2'] . "'/>"; else echo "<font size = 1 color ='white'> No image set for image 3. </font>" ?> <br><br>
+<?php if ($_SESSION['ph2']) echo "<font color='white' size=1>Your pic 2 is:</font> <img style='height: 30' id='base64image' src= 'data:image/png;base64," .  $_SESSION['ph2'] . "'/>"; else echo "<font size = 1 color ='white'> No image set for image 2. </font>" ?> <br><br>
 <input type="file" name="pho2" accept="image/png" id="photo2" color="white"> <font size=1 color="white"> Upload some images of yourself. (not required)</font> <br><br>
-<?php if ($_SESSION['ph3']) echo "<font color='white' size=1>Your Display pic is:</font> <img style='height: 30' id='base64image' src= 'data:image/png;base64," .  $_SESSION['ph3'] . "'/>"; else echo "<font size = 1 color ='white'> No image set for image 4. </font>" ?> <br><br>
+<?php if ($_SESSION['ph3']) echo "<font color='white' size=1>Your pic 3 is:</font> <img style='height: 30' id='base64image' src= 'data:image/png;base64," .  $_SESSION['ph3'] . "'/>"; else echo "<font size = 1 color ='white'> No image set for image 3. </font>" ?> <br><br>
 <input type="file" name="pho3" accept="image/png" id="photo3" color="white"> <font size=1 color="white"> Upload some images of yourself. (not required)</font> <br><br>
-<?php if ($_SESSION['ph4']) echo "<font color='white' size=1>Your Display pic is:</font> <img style='height: 30' id='base64image' src= 'data:image/png;base64," .  $_SESSION['ph4'] . "'/>"; else echo "<font size = 1 color ='white'> No image set for image 5. </font>" ?> <br><br>
+<?php if ($_SESSION['ph4']) echo "<font color='white' size=1>Your pic 4 is:</font> <img style='height: 30' id='base64image' src= 'data:image/png;base64," .  $_SESSION['ph4'] . "'/>"; else echo "<font size = 1 color ='white'> No image set for image 4. </font>" ?> <br><br>
 <input type="file" name="pho4" accept="image/png" id="photo4" color="white"> <font size=1 color="white"> Upload some images of yourself. (not required)</font> <br><br>
 <!-- <button onclick="getLocation()">Get location</button> <br> <br> -->
 <input type="hidden" name="long" id="long" required>
 <input type="hidden" name="lat" id="lat" required>
-<input type="hidden" name="dp" id="dp" required>
-<input type="hidden" name="ph1" id="ph1" required>
-<input type="hidden" name="ph2" id="ph2" required>
-<input type="hidden" name="ph3" id="ph3" required>
-<input type="hidden" name="ph4" id="ph4" required>
+<input type="hidden" name="dp" id="dp" value= <?php echo $_SESSION['dp']; ?>>
+<input type="hidden" name="ph1" id="ph1" value= <?php echo $_SESSION['ph1']; ?>>
+<input type="hidden" name="ph2" id="ph2" value= <?php echo $_SESSION['ph2']; ?>>
+<input type="hidden" name="ph3" id="ph3" value= <?php echo $_SESSION['ph3']; ?>>
+<input type="hidden" name="ph4" id="ph4" value= <?php echo $_SESSION['ph4']; ?>>
 <input class="button" onclick="getLocation()" type="submit" value="Submit">
 </form>
 </div>
