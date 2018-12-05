@@ -202,7 +202,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 
 function eventListen2() {
 if (window.File && window.FileReader && window.FileList && window.Blob) {
-   document.getElementById('photo2').addEventListener('change', handleFileSelect1, false);
+   document.getElementById('photo2').addEventListener('change', handleFileSelect2, false);
  } else {
    alert('The File APIs are not fully supported in this browser.');
  }}
@@ -227,7 +227,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 
 function eventListen3() {
 if (window.File && window.FileReader && window.FileList && window.Blob) {
-   document.getElementById('photo3').addEventListener('change', handleFileSelect1, false);
+   document.getElementById('photo3').addEventListener('change', handleFileSelect3, false);
  } else {
    alert('The File APIs are not fully supported in this browser.');
  }}
@@ -252,7 +252,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 
 function eventListen4() {
 if (window.File && window.FileReader && window.FileList && window.Blob) {
-   document.getElementById('photo4').addEventListener('change', handleFileSelect1, false);
+   document.getElementById('photo4').addEventListener('change', handleFileSelect4, false);
  } else {
    alert('The File APIs are not fully supported in this browser.');
  }}
