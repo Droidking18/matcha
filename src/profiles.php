@@ -35,24 +35,24 @@ else {
     }
 }
 $_SESSION['person'] = $_GET['user'];
-$noimage = "<div style='display: inline;'> <img width=24% src='https://vignette.wikia.nocookie.net/citrus/images/6/60/No_Image_Available.png/revision/latest?cb=20170129011325'></div>";
+$noimage = "<div style='display: inline;'> <img width=24% height=auto src='https://vignette.wikia.nocookie.net/citrus/images/6/60/No_Image_Available.png/revision/latest?cb=20170129011325'></div>";
 echo "<div style='width: 50%; float:right;'>";
 echo "<div > <img width=100% src='data:image/png;base64, " . $user['dp'] .  "'></div>";
 echo "<div>";
 if (strlen($user['image1']) > 10)
-    echo "<div style='display: inline;'> <img width=24% src='data:image/png;base64, " . $user['image1'] .  "'></div>";
+    echo "<div style='display: inline;'> <img width=24% height=auto src='data:image/png;base64, " . $user['image1'] .  "'></div>";
 else
     echo $noimage;
 if (strlen($user['image2']) > 10)
-    echo "<div style='display: inline;'> <img width=24% src='data:image/png;base64, " . $user['image2'] .  "'></div>";
+    echo "<div style='display: inline;'> <img width=24% height=auto src='data:image/png;base64, " . $user['image2'] .  "'></div>";
 else
     echo $noimage;
 if (strlen($user['image3']) > 10)
-    echo "<div style='display: inline;'> <img width=24% src='data:image/png;base64, " . $user['image3'] .  "'></div>";
+    echo "<div style='display: inline;'> <img width=24% height=auto src='data:image/png;base64, " . $user['image3'] .  "'></div>";
 else
     echo $noimage;
 if (strlen($user['image4']) > 10)
-    echo "<div style='display: inline;'> <img width=24% src='data:image/png;base64, " . $user['image4'] .  "'></div>";
+    echo "<div style='display: inline;'> <img width=24% height=auto src='data:image/png;base64, " . $user['image4'] .  "'></div>";
 else
     echo $noimage;
 echo "</div>";
@@ -76,7 +76,15 @@ else
     echo "the other.<\li>";
 echo "<li>" . age_calc($user['dob']) . " years old. ($user[dob])</li>";
 echo "<li>Interests:  " . implode(", ", unserialize($user['interests'])) . "</li>";
-//echo "</div>";
+if (visits_check($user['likes'], $_SESSION['login']) == NULL)
+    echo "<li>You like this user.</li>";
+if (visits_check($user['dislikes'], $_SESSION['login']) == NULL)
+    echo "<li>You dislike this user.</li>";
+if (visits_check($_SESSION['likes'], $user['login']) == NULL)
+    echo "<li>This user likes you.</li>";
+if (visits_check($_SESSION['dislikes'], $user['login']) == NULL)
+    echo "<li>This user dislikes you.</li>";
+echo "</li>";
 echo "</div>";
 
 ?>
@@ -116,17 +124,20 @@ echo "</div>";
 </script>
 <div style="height: 50%"id="map"></div>
 <div style="text-align:center; margin-left:auto; margin-right:auto;">
-<form method="get" action="like.php?user=<?php echo $user['login']; ?>&action=like">
+<form method="GET" action="like.php">
     <button type='submit'>Like 💑</button>
+    <input type='hidden' value=<?php echo $user['login']; ?> name=user>
 </form>
 <form method="post" action="chatadd.php?user=<?php echo $user['login']; ?>">
     <input name="message" style="width: 400;" type "text" value="Hi <?php echo $user['first_name']; ?>, my name is <?php echo $_SESSION['name']; ?> and I want to chat!" required><br>
     <button type='submit'>Chat 💬</button>
 </form>
-<form method="get" action="like.php?user=<?php echo $user['login']; ?>&action=dislike">
+<form method="get" action="dislike.php">
     <button type='submit'>Dislike 😢</button>
+    <input type='hidden' value=<?php echo $user['login']; ?> name=user>
 </form>
-<form method="get" action="block.php?user=<?php echo $user['login']; ?>">
+<form method="get" action="block.php">
     <button type='submit'>Report and block user 🤬</button>
+    <input type='hidden' value=<?php echo $user['login']; ?> name=user>
 </form>
 </div>

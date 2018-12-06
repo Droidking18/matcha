@@ -37,6 +37,9 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 			    	$_SESSION['name'] = $user['first_name'];
 			    	$_SESSION['lastname'] = $user['last_name'];
                     $_SESSION['dob'] = $user['dob'];
+                    $_SESSION['likes'] = $user['likes'];
+                    $_SESSION['dislikes'] = $user['dislikes'];
+                    $_SESSION['blocks'] = $user['blocks'];
                     $_SESSION['interest'] = implode(" ", unserialize(($user['interests'])));
                     exit("Congratulations, you're now logged in. <meta http-equiv='refresh' content='3;url=index.php' />");
                 }    
@@ -74,11 +77,11 @@ function passvis() {
 <div class="center">
 <input id="pw" style="width: 160px;" type="password" name="password" placeholder="Enter password" required><font color="white" face="verdana" size="1">Show password</font><input style="color: white" type="checkbox" onclick="passvis()"><br><br>
 </div>
-<a href="forgot.php"><font size="1" color="gray">Forgot password?</font></a><br>
+<a href="forgot.php"><font size="1" color="white">Forgot password?</font></a><br>
 <input class="button" type="submit" value="Submit" style="margin-top: 10px;">
 </form>
 </center>
 </div>
 </body>
-<footer style ="position: relative; bottom: -70%; color: gray; text-align: center;"><hr style="border: 2px solid gray;" />dkaplanⓒ</footer>
+<footer style ="position: relative; bottom: -70%; color: gray; text-align: center; color: black;"><hr style="border: 2px solid darkgrey;" />dkaplanⓒ</footer>
 </html>
