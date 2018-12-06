@@ -28,7 +28,7 @@ else {
     if (strlen(likes_check($user['dislikes'], $_SESSION['login'])) > strlen($user['dislikes'])) {
          if ($user['rating'] != NULL) {
              $rate = $user['rating'] - 2;
-             add_to_not("You got a new dislike at " . date("Y.m.d h:i:sa"), $user['login'], $_SESSION['login']);
+             add_to_not("You got a new dislike at " . date("Y.m.d h:i:s A", strtotime("-2")), $_SESSION['login'], $user['login']);
         }
     }
     else {

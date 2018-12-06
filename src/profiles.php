@@ -18,8 +18,13 @@ if (!isset($_GET['user']))
 
 $conn = getDB();
 $stmt = $conn->prepare("SELECT * FROM users WHERE login=?");
+$stmt->execute([$_SESSION['login']]);
+$me = $stmt->fetch();
+$stmt = $conn->prepare("SELECT * FROM users WHERE login=?");
 $stmt->execute([$_GET['user']]);
 $user = $stmt->fetch();
+$_SESSION['likes'] = $me['likes'];
+$_SESSION['dislikes'] = $me['dislikes'];
 if (!is_array($user))
     exit ("bad link <meta http-equiv='refresh' content='1;url=profile.php?page=1' />");
 else { 

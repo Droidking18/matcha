@@ -9,13 +9,11 @@ include("message_check.php");
 if (!$_SESSION['login'])
    exit ("Please login first. <meta http-equiv='refresh' content='0;url=login.php' />"); 
 
-if ($_SESSION['notification'] == "Y") { 
     $conn = getDB();
     $sql = "UPDATE users SET notification = ? WHERE login = ?";
     $statement= $conn->prepare($sql);
     $statement->execute(["N", $_SESSION['login']]);
     $_SESSION['notification'] = "N";
-}
 
 getLoggedHead();
  echo "<body style='background-color:gray'>";
