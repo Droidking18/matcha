@@ -84,15 +84,18 @@ function send_message($user, $message_user, $inverted) {
     $existsinvert = -1;
     $sql = "SELECT messages FROM users WHERE login = \"" . $new[$exist]['user'] . "\"";
     foreach ($conn->query($sql) as $inverted_mess) {
-         $inv = $message['messages'];
+         $inv = $inverted_mess['messages'];
     }
-    $invs = unserialize($original);
+    $invs = unserialize($inv);
     foreach ($invs as $keyin=>$checkexistsinvert) {
-	    if ($checkexistsinvert['user'] == $_SESSION['login'])
-		    $existsinvert == $keyin;
+	    if ($checkexistsinvert['user'] == $_SESSION['login']) {
+		    $existsinvert = $keyin;
+	    }
     }
     if ($existsinvert == -1)
-	    $existsinvert = $key + 1;
+	    $existsinvert = $keyin + 1;
+    if (!isset($keyin))
+	    $existsinvert = 0;
     /****************** new *****************************/
 
     $invert = array_values($new[$exist]['message']);
@@ -100,11 +103,18 @@ function send_message($user, $message_user, $inverted) {
         $invert[$arr[$key]] = $new_arr;
         unset($invert[$key]);
     }
-    print_r($inv);
     $new_invert = $invs;
     echo ("<br>$existsinvert");
     $new_invert[$existsinvert]['message'] = $invert;
     $new_invert[$existsinvert]['user'] = $_SESSION['login'];
+    if (!isset($new_invert[$existsinvert]['id']))
+	    $new_invert[$existsinvert]['id'] = uniqid('', true);
+    //(print_r($new));
+    //echo $inv;
+    //echo $new[$exist]['user'] . $existsinvert;
+    //(print_r($invs));
+    //(print_r($invs));
+    //exit (print_r($new_invert));
     if ($inverted == 0)
         return (serialize($new));
     else

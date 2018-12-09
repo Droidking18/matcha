@@ -8,15 +8,15 @@ include ("../config/config.php");
      $original = $message['messages'];
      $mes = $message['message'];
  }
- //if ($mes == "N")
- //   return ("");
  $new = unserialize($original);
  foreach ($new as $key=>$thread) {
-     if ($_GET['id'] == $thread['id'])
-         $exist = $key;
+	 if ($_GET['id'] == $thread['id']) {
+	     $exist = $key;
+	     break;
+	 }
  }
  $messa = "";
-foreach ($new[$key]['message'] as $key => $text)
+foreach ($new[$exist]['message'] as $key => $text)
 {
          if (preg_match("/sen/", $key))
               $messa .= "<div style=\"position: relative; display: block; float: left; left: 6%;\" class=\"box sb2\">" .  htmlspecialchars($text)  . "</div>";

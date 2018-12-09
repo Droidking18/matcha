@@ -30,10 +30,10 @@ foreach ($new as $key=>$thread) {
 	//echo $thread['id'] . $exist;
 	//echo $new[$exist]['message']['sen1'];
     }
+}
     	
         $_SESSION['person'] = $new[$exist]['user'];
-        echo "<u><p style='color: lightgray; margin: auto; width: 50%; text-align:center;font-size: 18;'>" .  $new[$exist]['user']  . "</p></u><p id='person' style='color: lightgray; margin: auto; width: 50%; text-align:center;font-size: 18;'></p></u>";
-}
+        echo "<u><p style='color: lightgray; margin: auto; width: 50%; text-align:center;font-size: 18;'> $_SESSION[person]</p></u><p id='person' style='color: lightgray; margin: auto; width: 50%; text-align:center;font-size: 18;'></p></u>";
 if ($exist == -1)
     exit("Bad link. exit <meta http-equiv='refresh' content='0;url=message.php'/>");
 
@@ -115,7 +115,7 @@ setInterval(function () { $.ajax({
        success: function(data){ $("#mes").html(data);}
    }); }, 5000);
      setInterval(function () { $.ajax({
-       url: 'chatload.php?',
+       url: 'chatload.php?id=<?php echo $new[$exist]['id'];?>',
        data: { },
        success: function(data){ $("#chat").html(data);}
      }); }, 5000);
