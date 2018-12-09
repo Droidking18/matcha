@@ -2,6 +2,8 @@
 
 session_start();
 
+
+//exit (print_r ($_GET));
 include("message_check.php");
 include ("header.php");
 include ("../config/config.php");
@@ -25,9 +27,12 @@ foreach ($new as $key=>$thread) {
     if ($_GET['id'] == $thread['id'])
     {
         $exist = $key;
+	echo $thread['id'] . $exist;
+	echo $new[$exist]['message']['sen1'];
     }
+    	
         $_SESSION['person'] = $new[$exist]['user'];
-        echo "<u><p style='color: lightgray; margin: auto; width: 50%; text-align:center;font-size: 18;'>" .  $_SESSION['person']  . "</p></u><p id='person' style='color: lightgray; margin: auto; width: 50%; text-align:center;font-size: 18;'></p></u>";
+        echo "<u><p style='color: lightgray; margin: auto; width: 50%; text-align:center;font-size: 18;'>" .  $new[$exist]['user']  . "</p></u><p id='person' style='color: lightgray; margin: auto; width: 50%; text-align:center;font-size: 18;'></p></u>";
 }
 if ($exist == -1)
     exit("Bad link. exit <meta http-equiv='refresh' content='0;url=message.php'/>");
@@ -113,14 +118,14 @@ setInterval(function () { $.ajax({
        url: 'chatload.php?',
        data: { },
        success: function(data){ $("#chat").html(data);}
-   }); }, 5000);
+     }); }, 5000);
 
  </script>
 
 <div class="container">
     <?php
     echo "<div id='chat'>";
-    foreach ($new[$key]['message'] as $key => $text)
+    foreach ($new[$exist]['message'] as $key => $text)
     {
         if (preg_match("/sen/", $key))
              echo "<div style=\"position: relative; display: block; float: left; left: 6%;\" class=\"box sb2\">" .  htmlspecialchars($text)  . "</div>";
@@ -128,7 +133,7 @@ setInterval(function () { $.ajax({
             echo "<div style=\"position: relative; display: block; float: right; right: 6%;\" class=\"box sb1\">" . htmlspecialchars($text) . "</div>"; 
     }
     echo "</div>";?>
-    <form onsubmit="document.getElementById('user').value = '<?php echo $new[$exist]['user']; ?>'; document.getElementById('id').value = '<?php echo $_GET['id']; ?>'; " method="POST" style="padding-top: 100%; position: relative; display: block; margin: auto; width: 10%; padding: 10px;">
+    <form id="send_mes" onsubmit="document.getElementById('user').value = '<?php echo $new[$exist]['user']; ?>'; document.getElementById('id').value = '<?php echo $_GET['id']; ?>'; " method="POST" style="padding-top: 100%; position: relative; display: block; margin: auto; width: 10%; padding: 10px;">
         <input type="text" name="message" required>
         <input id="user" type="hidden" name="user">
         <input id="id" type="hidden" name="id">
