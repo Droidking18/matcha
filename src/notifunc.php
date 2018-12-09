@@ -79,14 +79,32 @@ function send_message($user, $message_user, $inverted) {
             $arr[$key] = $arr_new;
         }
     }
+
+    /****************** new *****************************/
+    $existsinvert = -1;
+    $sql = "SELECT messages FROM users WHERE login = \"" . $new[$exist]['user'] . "\"";
+    foreach ($conn->query($sql) as $inverted_mess) {
+         $inv = $message['messages'];
+    }
+    $invs = unserialize($original);
+    foreach ($invs as $keyin=>$checkexistsinvert) {
+	    if ($checkexistsinvert['user'] == $_SESSION['login'])
+		    $existsinvert == $keyin;
+    }
+    if ($existsinvert == -1)
+	    $existsinvert = $key + 1;
+    /****************** new *****************************/
+
     $invert = array_values($new[$exist]['message']);
     foreach($invert as $key => $new_arr) {
         $invert[$arr[$key]] = $new_arr;
         unset($invert[$key]);
     }
-    $new_invert = $new;
-    $new_invert[$exist]['message'] = $invert;
-    $new_invert[$exist]['user'] = $_SESSION['login'];
+    print_r($inv);
+    $new_invert = $invs;
+    echo ("<br>$existsinvert");
+    $new_invert[$existsinvert]['message'] = $invert;
+    $new_invert[$existsinvert]['user'] = $_SESSION['login'];
     if ($inverted == 0)
         return (serialize($new));
     else

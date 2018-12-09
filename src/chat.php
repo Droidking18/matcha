@@ -27,8 +27,8 @@ foreach ($new as $key=>$thread) {
     if ($_GET['id'] == $thread['id'])
     {
         $exist = $key;
-	echo $thread['id'] . $exist;
-	echo $new[$exist]['message']['sen1'];
+	//echo $thread['id'] . $exist;
+	//echo $new[$exist]['message']['sen1'];
     }
     	
         $_SESSION['person'] = $new[$exist]['user'];
