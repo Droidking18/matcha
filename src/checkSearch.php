@@ -1,6 +1,9 @@
 <?php
 
 function checkSearch($agemin, $agemax, $far, $gen, &$pedoswitch) {
+	echo "<script> console.log('" .strlen($agemin) . "'); </script>";
+	if (!strlen($agemin) || !strlen($agemax) || !strlen($gen) || !strlen($far))
+		return "Please enter all fields.";
 	$re = "/^[0-9]+$/";
         if(!preg_match($re, $agemin))
 		return "Your minimum age is not a number";
@@ -22,7 +25,14 @@ function checkSearch($agemin, $agemax, $far, $gen, &$pedoswitch) {
 		return "Bad distance value. Do you even math?";
 	if ($gen != "O" && $gen != "M" && $gen != "F")
 		return "You need to enter correct gender. F, M or O. Like I said. JESUS.";
-	return true;
+	return "true";
 }
 
-
+function interestMatch($int, $intmatch) { 
+	$int = unserialize($int);
+	$intmatch = unserialize($intmatch);
+	foreach($int as $interest)
+		if (!(in_array($interest, $intmatch)))
+			return false;
+	return true;
+}

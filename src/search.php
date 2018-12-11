@@ -6,6 +6,7 @@ include ("backcheck.php");
 include ("checkSearch.php");
 include ("gps.php");
 include ("age.php");
+include ("visits.php");
 
 session_start();
 
@@ -22,32 +23,41 @@ if (isset($_SESSION['profile']) && $_SESSION['profile'] == "N")
 $conn = getDB();
 $switch = "no";
 if (!isset($_POST['age_low']) && !isset($_POST['age_high']) && !isset($_POST['interest']) && !isset($_POST['loc']) && !isset($_POST['distance']))
-	echo "<form method=POST>
-		<input style='width: 69%;' placeholder='Enter a minimum age.' type=text name=age_low>
-		<input style='width: 69%;' placeholder='Enter a maximum age.' type=text name=age_high><br>
-		<input style='width: 69%;' placeholder='Enter one of more interest (tags starting with '#' and seperated by spaces.' type=text name=interest>
+	echo "<form onload=\"getLocation();\"' method=POST>
+		<input style='width: 69%;' placeholder='Enter a minimum age.' type=text name=age_low required >
+		<input style='width: 69%;' placeholder='Enter a maximum age.' type=text name=age_high required><br>
+		<input style='width: 69%;' placeholder='Enter one of more interest (tags starting with `#` and seperated by spaces.)' type=text name=interest required>
 		<input id='loc' type=hidden name=loc>
 		<input id='lat' type=hidden name=lat>
 		<input id='long' type=hidden name=long>
-		<input style='width: 69%;' placeholder='Enter how far they can be. (Max amount of KM away.)' type=text name=distance>
-		<input style='width: 69%;' placeholder='Enter gender wanted. that is:  M, F or O'  type=text name=gender>
+		<input style='width: 69%;' placeholder='Enter how far they can be. (Max amount of KM away. May be inaccuarate if you don`t share your location.)' type=text name=distance required>
+		<input style='width: 69%;' placeholder='Enter gender wanted. that is:  M, F or O'  type=text name=gender required>
 		<input type=submit>";
-else if(checkInterest($_POST['interest']) != false && checkSearch($_POST['age_low'], $_POST['age_high'], $_POST['distance'], $_POST['gender'], $switch) == true) {
+else if(checkInterest($_POST['interest']) != false && checkSearch($_POST['age_low'], $_POST['age_high'], $_POST['distance'], $_POST['gender'], $switch) == "true") {
 	$int = checkInterest($_POST['interest']);
 	$matches = [];
 	$sql = "SELECT DISTINCT * FROM users ORDER BY rating DESC";
 	foreach ($conn->query($sql) as $key=>$profile) {
+		$intmatch = ($profile['interests']);
 		$dist = distance($_POST['lat'], $_POST['long'], $profile['lat'], $profile['long']);
 		$age = age_calc($profile['dob']);
 		//echo $dist . "  " . $age . "  " . $_POST['gender'] . $profile['gen'] . "<br>";
-		if ($_POST['gender'] == $profile['gen'] && $age >= $_POST['age_low'] && $age <= $_POST['age_high'] && $dist <= $_POST['distance']){
+		if ($_POST['gender'] == $profile['gen'] && $age >= $_POST['age_low'] && $age <= $_POST['age_high'] && $dist <= $_POST['distance'] && interestMatch($int, $intmatch) && visits_check($profile['blocks'], $_SESSION['login']) != NULL){
 			array_push($matches, $profile);
+			echo "<script> console.log('hi')</script>";
 		}
 	}
-		echo "<div class='grid-container'>";
+	echo "<div class='grid-container'>";
+	if (sizeof($matches) > 0) {
 		foreach($matches as $found)
-		echo "<div class='grid-item'>" . $found['login'] . "<br><img style= 'width:100%;'src='data:image/png;base64," . $found['dp'] . "'></div>";
+			echo "<div class='grid-item'><p style='font-size:medium'>" . $found['login'] . "<br>"  . $found['first_name'] . " " . $found['last_name'] . "<br>Age: " . age_calc($found['dob']) . "<br>They are " . distance($_POST['lat'], $_POST['long'], $found['lat'], $found['long']) . " away from you.<br>"; 
+		if (isset($_SESSION['login']))
+			echo "Click <a href='profiles.php?user=" . $found['login'] . "'>here</a> to  meet them!";
+		else
+			echo "Click <a href='signup.php'>here</a> to signup!";
+		echo"<p><br><img style= 'width:100%;'src='data:image/png;base64," . $found['dp'] . "'></div>";
 		echo "</div>";
+	}
 
 	}
 else if (isset($_POST['gender'])) {
@@ -80,7 +90,7 @@ function getLocation() {
        var datas = (JSON.stringify(data, null, 2));
        document.getElementById("long").value = (data.geobyteslongitude);
        document.getElementById("lat").value = (data.geobyteslatitude);
-       console.log(datas);
+       console.log(data.geobyteslongitude);
        });
 
        break;
@@ -112,6 +122,31 @@ function getLocation() {
  }
  </script>
 <style>
+input{
+  height:50px;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  white-space:pre-line;
+  position:relative;
+  top:-7px;
+
+}
+::-moz-placeholder { /* Firefox 19+ */
+     white-space:pre-line;
+  position:relative;
+  top:-7px;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    white-space:pre-line;
+  position:relative;
+  top:-7px;
+}
+:-moz-placeholder { /* Firefox 18- */
+     white-space:pre-line;
+  position:relative;
+  top:-7px;
+}
 .grid-container {
   display: grid;
   grid-template-columns: auto auto auto;
@@ -126,4 +161,4 @@ function getLocation() {
   text-align: center;
 }
 </style>
-<body onload="getLocation();" style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">
+<body style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">
