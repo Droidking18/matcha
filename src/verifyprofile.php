@@ -48,7 +48,7 @@ if (isset($_POST['dp']) && strlen($_POST['dp']) > 16) {
 }
 else
     $dp = $_SESSION['dp'];
-$interest = checkInterest($_POST['interest']);
+$interest = checkInterest($_POST['interest'], 0);
 
 
 if (isset($interest) && isset($long) && isset($lat) && isset($gen) && isset($gen_pref) && checkGen($gen) && checkGen($gen_pref) && isset($dp) && isset($dob) && checkDob($dob)  && isset($first_name) && isset($last_name) && checkName($first_name) && checkName($last_name)) {

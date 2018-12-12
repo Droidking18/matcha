@@ -23,9 +23,9 @@ if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email']
         $id = uniqid('', TRUE) . uniqid('', TRUE);
         $login = htmlspecialchars($_POST["login"]);
         $email = htmlspecialchars($_POST["email"]);
-        $sql = "INSERT INTO users (id, login, password, email, notification, notifications, profile, dp, message, messages, online) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (id, login, password, email, notification, notifications, profile, dp, message, messages, online, visits) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $statement= $conn->prepare($sql);
-        $statement->execute([$id, $login, $hash, $email, "Y", $mess ,"N", "none", "Y", $not, mktime()]);
+        $statement->execute([$id, $login, $hash, $email, "Y", $mess ,"N", "none", "Y", $not, mktime(), serialize([])]);
                  } catch (exception $e) {
                        echo $e->getMessage() . "\n";
                        exit ("Something went wrong, try again <meta http-equiv='refresh' content='3;url=index.php' />");

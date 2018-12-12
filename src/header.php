@@ -67,6 +67,7 @@ body {
   <a href='https://www.reddit.com/r/PHP/comments/1fy71s/why_do_so_many_developers_hate_php/' class='logo'>
   <img src='https://preview.ibb.co/nBWeEf/logodovi.png' size=800' height='50' ></a>
   <div class='header-right'>
+    <a href='search.php'>Search</a>
     <a href='login.php'>Login</a>
     <a href='signup.php'>Signup</a>
   </div>

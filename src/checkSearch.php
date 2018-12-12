@@ -28,7 +28,9 @@ function checkSearch($agemin, $agemax, $far, $gen, &$pedoswitch) {
 	return "true";
 }
 
-function interestMatch($int, $intmatch) { 
+function interestMatch($int, $intmatch) {
+    if ($int == " ")
+       return true; 
 	$int = unserialize($int);
 	$intmatch = unserialize($intmatch);
 	foreach($int as $interest)

@@ -34,7 +34,9 @@ function checkPass($pass)
 	return true;
 }
 
-function checkInterest($int){
+function checkInterest($int, $noneallowed){
+    if ($noneallowed == 1 && strlen($int) < 2)
+        return (" ");
     $re = "/^\s+$/";
     if (preg_match ($re, $int) || strlen($int) < 2)
         return (false);

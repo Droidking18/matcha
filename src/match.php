@@ -15,10 +15,10 @@ if (isset($_SESSION['login'])) {
 	$_POST['lat'] = $_SESSION['lat'];
 	getLoggedHead();
 }
-else
-	getHead();
+else 
+	exit ("First login.<meta http-equiv='refresh' content='0;url=login.php' />");
 if (isset($_SESSION['profile']) && $_SESSION['profile'] == "N")
-	exit ("First tell us about yourself.<meta http-equiv='refresh' content='0;url=profile.php' />");
+	exit ("First tell us about yourself.<meta http-equiv='refresh' content='0;url=profile.php?page=1' />");
 
 $conn = getDB();
 $switch = "no";
@@ -168,27 +168,3 @@ input{
 }
 </style>
 <body onload="getLocation();"style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- <script>
- setInterval(function () { $.ajax({
-     url: 'online.php',
-     success: function(){}
- }); }, 5000);
-setInterval(function () { 
-        if (document.getElementById("not") == null)
-            return;
-       $.ajax({
-       url: 'checknot.php?',
-       data: { },
-       success: function(data){ $("#not").html(data);}
-   }); }, 5000);
-        setInterval(function () { 
-            if (document.getElementById("mes") == null)
-            return;
-      $.ajax({
-       url: 'checkmes.php?',
-       data: { },
-       success: function(data){ $("#mes").html(data);}
-   }); }, 5000);
- </script>
-
