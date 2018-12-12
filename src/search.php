@@ -67,8 +67,11 @@ else if(checkInterest($_POST['interest'], 1) != false && checkSearch($_POST['age
 else if (isset($_POST['gender'])) {
 	if (checkInterest($_POST['interest'], 1) == false)
 		echo "You interests must all start with a '#' and be seperated by spaces.";
-	$ret = checkSearch($_POST['age_low'], $_POST['age_high'], $_POST['distance'], $_POST['gender'], $switch);
-	echo $ret;
+    $ret = checkSearch($_POST['age_low'], $_POST['age_high'], $_POST['distance'], $_POST['gender'], $switch);
+    if ($switch == "no")
+	    echo $ret . "<meta http-equiv='refresh' content='1;url=search.php' />";
+    else
+        echo $ret;
 }
 
 ?>
@@ -174,18 +177,12 @@ input{
      url: 'online.php',
      success: function(){}
  }); }, 5000);
-setInterval(function () { 
-        if (document.getElementById("not") == null)
-            return;
-       $.ajax({
+setInterval(function () { $.ajax({
        url: 'checknot.php?',
        data: { },
        success: function(data){ $("#not").html(data);}
    }); }, 5000);
-        setInterval(function () { 
-            if (document.getElementById("mes") == null)
-            return;
-      $.ajax({
+        setInterval(function () { $.ajax({
        url: 'checkmes.php?',
        data: { },
        success: function(data){ $("#mes").html(data);}

@@ -66,7 +66,7 @@ if (isset($interest) && isset($long) && isset($lat) && isset($gen) && isset($gen
         $_SESSION['ph2'] = $pic2;
         $_SESSION['ph3'] = $pic3;
         $_SESSION['ph4'] = $pic4;
-        $_SESSION['interest'] = checkInterest($interest);
+        $_SESSION['interest'] = checkInterest($interest, 0);
         $_SESSION['lat'] = $lat;
         $_SESSION['long'] = $long;
         $_SESSION['profile'] = "Y";

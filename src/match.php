@@ -21,59 +21,63 @@ if (isset($_SESSION['profile']) && $_SESSION['profile'] == "N")
 	exit ("First tell us about yourself.<meta http-equiv='refresh' content='0;url=profile.php?page=1' />");
 
 $conn = getDB();
-$switch = "no";
-if (!isset($_POST['age_low']) && !isset($_POST['age_high']) && !isset($_POST['interest']) && !isset($_POST['loc']) && !isset($_POST['distance']))
-	echo "<form onchange='getLocation();' method=POST>
-		<input style='width: 69%;' placeholder='Enter a minimum age.' type=text name=age_low required >
-		<input style='width: 69%;' placeholder='Enter a maximum age.' type=text name=age_high required><br>
-		<input style='width: 69%;' placeholder='Enter one of more interest (tags starting with `#` and seperated by spaces.)' type=text name=interest>
-		<input id='loc' type=hidden name=loc>
-		<input id='lat' type=hidden name=lat>
-		<input id='long' type=hidden name=long>
-		<input style='width: 69%;' placeholder='Enter how far they can be. (Max amount of KM away. May be inaccuarate if you don`t share your location.)' type=text name=distance required>
-        <input style='width: 69%;' placeholder='Enter gender wanted. that is:  M, F or O'  type=text name=gender required><br>
-        <input type='button' value='Share your current location' onclick='getLocation()'>
-		<input type=submit>";
-else if(checkInterest($_POST['interest'], 1) != false && checkSearch($_POST['age_low'], $_POST['age_high'], $_POST['distance'], $_POST['gender'], $switch) == "true") {
-	$int = checkInterest($_POST['interest'], 1);
-	$matches = [];
-	$sql = "SELECT DISTINCT * FROM users ORDER BY rating DESC";
-	foreach ($conn->query($sql) as $key=>$profile) {
-		$intmatch = ($profile['interests']);
-        $dist = distance($_POST['lat'], $_POST['long'], $profile['lat'], $profile['long']);
-        $age = age_calc($profile['dob']);
-       //echo "age: $age dist: $dist lat: $_POST[lat] profile: $profile[lat]";
-		if ($_POST['gender'] == $profile['gen'] && $age >= $_POST['age_low'] && $age <= $_POST['age_high'] && $dist <= $_POST['distance'] && interestMatch($int, $intmatch) && visits_check($profile['blocks'], $_SESSION['login']) != NULL){
-			array_push($matches, $profile);
-			echo "<script> console.log('hi')</script>";
-		}
+
+$matches = [];
+
+$stmt = $conn->prepare("SELECT * FROM users WHERE login=?");
+$stmt->execute([$_SESSION['login']]);
+$me = $stmt->fetch();
+$int = checkInterest($me['interest'], 1);
+
+$sql = "SELECT * FROM users ORDER BY rating DESC";
+foreach ($conn->query($sql) as $key=>$profile) {
+	$intmatch = ($profile['interests']);
+    $dist = distance($me['lat'], $me['long'], $profile['lat'], $profile['long']);
+    $age = age_calc($profile['dob']);
+	if ($me['gen_pref'] == $profile['gen'] && $age <= age_calc($me['dob']) + 10 && $dist <= 20 && visits_check($profile['blocks'], $_SESSION['login']) != NULL){
+		array_push($matches, $profile);
+		echo "<script> console.log('hi')</script>";
 	}
+}
 	echo "<div class='grid-container'>";
 	if (sizeof($matches) > 0) {
-		foreach($matches as $found) {
-			echo "<div class='grid-item'><p style='font-size:medium'>" . $found['login'] . "<br>"  . $found['first_name'] . " " . $found['last_name'] . "<br>Age: " . age_calc($found['dob']) . "<br>They are " . round(distance($_POST['lat'], $_POST['long'], $found['lat'], $found['long'])) . " km away from you.<br>"; 
-		if (isset($_SESSION['login']))
-			echo "Click <a href='profiles.php?user=" . $found['login'] . "'>here</a> to  meet them!";
-		else
-			echo "Click <a href='signup.php'>here</a> to signup!";
+        foreach($matches as $key=>$found) {
+
+			echo "<div  style='display:none' class='grid-item' id='" . $key . "'<p style='font-size:medium'>" . $found['login'] . "<br>"  . $found['first_name'] . " " . $found['last_name'] . "<br>Age: " . age_calc($found['dob']) . "<br>They are " . round(distance($_POST['lat'], $_POST['long'], $found['lat'], $found['long'])) . " km away from you.<br>"; 
+		echo "Click <a href='profiles.php?user=" . $found['login'] . "'>here</a> to  meet them!";
+		//else
+		//	echo "Click <a href='signup.php'>here</a> to signup!";
             echo"<p><br><img style= 'width:100%;'src='data:image/png;base64," . $found['dp'] . "'></div>";
         }
 		echo "</div>";
     }
     else
-        echo "<p> No matches found for that search :(</p>";
-
-	}
-else if (isset($_POST['gender'])) {
-	if (checkInterest($_POST['interest'], 1) == false)
-		echo "You interests must all start with a '#' and be seperated by spaces.";
-	$ret = checkSearch($_POST['age_low'], $_POST['age_high'], $_POST['distance'], $_POST['gender'], $switch);
-	echo $ret;
-}
+        echo "<p> Sorry there are no matches near you  :(</p>";
+    echo "<button onclick='switchie()'>";
 
 ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script>
+    <script>
+    let i = 0;
+    let end = 0;
+    if (document.getElementById(0) != null)
+        document.getElementById(0).style.display = "block";
+    while (document.getElementById(end) != null)
+        end++;
+    end--;
+        console.log(end);
+    function switchie() {
+        if (document.getElementById(i) == null)
+          i = 0;
+        document.getElementById(i).style.display = "block";
+        if (i == 0)
+            document.getElementById(end).style.display = "none";
+        else
+            document.getElementById(i - 1).style.display = "none";
+        i++;
+        console.log("i: " + i);
+        console.log("end: " + end);
+    }
 function getLocation() {
     if (document.getElementById("lat") == null)
         return;
@@ -154,7 +158,7 @@ input{
   top:-7px;
 }
 .grid-container {
-  display: grid;
+  /*display: grid;*/
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   padding: 10px;
 }

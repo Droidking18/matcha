@@ -3,7 +3,8 @@
 session_start();
 include ("../config/config.php");
 
-
+if (!isset($_SESSION['login']))
+    exit("");
 $conn = getDB();
 $sql = "SELECT message FROM users WHERE login = \"$_SESSION[login]\"";
 foreach ($conn->query($sql) as $online) {
