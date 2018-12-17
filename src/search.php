@@ -42,10 +42,8 @@ else if(checkInterest($_POST['interest'], 1) != false && checkSearch($_POST['age
 		$intmatch = ($profile['interests']);
         $dist = distance($_POST['lat'], $_POST['long'], $profile['lat'], $profile['long']);
         $age = age_calc($profile['dob']);
-       //echo "age: $age dist: $dist lat: $_POST[lat] profile: $profile[lat]";
-		if ($_POST['gender'] == $profile['gen'] && $age >= $_POST['age_low'] && $age <= $_POST['age_high'] && $dist <= $_POST['distance'] && interestMatch($int, $intmatch) && visits_check($profile['blocks'], $_SESSION['login']) != NULL){
+		if ($_POST['gender'] == $profile['gen'] && $age >= $_POST['age_low'] && $age <= $_POST['age_high'] && $dist <= $_POST['distance'] && interestMatch($int, $intmatch) && visits_check($profile['blocks'], $_SESSION['login']) != NULL && $profile['profile'] == "Y"){
 			array_push($matches, $profile);
-			echo "<script> console.log('hi')</script>";
 		}
 	}
 	echo "<div class='grid-container'>";

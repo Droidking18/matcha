@@ -10,11 +10,11 @@ include ("age.php");
 if (isset($_SESSION['login']))
     getLoggedHead();
 else
-    exit ("Please login first. <meta http-equiv='refresh' content='1;url=login.php?page=1' />");
+    exit ("Please login first. <meta http-equiv='refresh' content='1;url=login.php' />");
 if ($_SESSION['profile'] == "N")
-    exit ("Please enter your other details first. <meta http-equiv='refresh' content='1;url=profile.php?page=1' />");
+    exit ("Please enter your other details first. <meta http-equiv='refresh' content='1;url=profile.php' />");
 if (!isset($_GET['user']))
-    exit ("Bad link. <meta http-equiv='refresh' content='1;url=index.php?page=1' />");
+    exit ("Bad link. <meta http-equiv='refresh' content='1;url=index.php' />");
 
 $conn = getDB();
 $stmt = $conn->prepare("SELECT * FROM users WHERE login=?");
@@ -25,9 +25,11 @@ $stmt->execute([$_GET['user']]);
 $user = $stmt->fetch();
 $_SESSION['likes'] = $me['likes'];
 $_SESSION['dislikes'] = $me['dislikes'];
-if (!is_array($user))
-    exit ("bad link <meta http-equiv='refresh' content='1;url=profile.php?page=1' />");
+if (!is_array($user) || $user['profile'] == "N")
+	exit ("bad link <meta http-equiv='refresh' content='1;url=index.php' />");
 else { 
+	if (visits_check($me['blocks'], $user['login']) == NULL)
+		exit ("You've been blocked owo <meta http-equiv='refresh' content='1;url=index.php' />");
     if ($user['rating'] == NULL)
         $rate = 1;
     if (visits_check($user['visits'], $_SESSION['login']) != NULL){
@@ -81,12 +83,16 @@ else
     echo "the other.<\li>";
 echo "<li>" . age_calc($user['dob']) . " years old. ($user[dob])</li>";
 echo "<li>Interests:  " . implode(", ", unserialize($user['interests'])) . "</li>";
-if (visits_check($user['likes'], $_SESSION['login']) == NULL)
+if (visits_check($user['likes'], $_SESSION['login']) == NULL) {
+    $one = "yes";
     echo "<li>You like this user.</li>";
+}
 if (visits_check($user['dislikes'], $_SESSION['login']) == NULL)
     echo "<li>You dislike this user.</li>";
-if (visits_check($_SESSION['likes'], $user['login']) == NULL)
+if (visits_check($_SESSION['likes'], $user['login']) == NULL) {
+    $two = "yes";
     echo "<li>This user likes you.</li>";
+}
 if (visits_check($_SESSION['dislikes'], $user['login']) == NULL)
     echo "<li>This user dislikes you.</li>";
 echo "</li>";
@@ -133,10 +139,12 @@ echo "</div>";
     <button type='submit'>Like 💑</button>
     <input type='hidden' value=<?php echo $user['login']; ?> name=user>
 </form>
-<form method="post" action="chatadd.php?user=<?php echo $user['login']; ?>">
-    <input name="message" style="width: 400;" type "text" value="Hi <?php echo $user['first_name']; ?>, my name is <?php echo $_SESSION['name']; ?> and I want to chat!" required><br>
+<?php if ($one == "yes" && $two == "yes") {
+echo "<form method='post' action='chatadd.php?user=$user[login]'>
+    <input name='message' style='width: 400;' type 'text' value='Hi $user[first_name], my name is $_SESSION[name] and I want to chat! We`re a match!' required><br>
     <button type='submit'>Chat 💬</button>
-</form>
+</form>";
+  } ?>
 <form method="get" action="dislike.php">
     <button type='submit'>Dislike 😢</button>
     <input type='hidden' value=<?php echo $user['login']; ?> name=user>

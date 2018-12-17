@@ -6,18 +6,34 @@ include("message_check.php");
 include ("backcheck.php");
 include ("../config/config.php");
 
-//Array ( [gender] => M [gender-pref] => F [dph] => logodovi.png [pho1] => [pho2] => [pho3] => [pho4] => [long] => Longitude location is 27.8962176 [lat] => Longitude location is -26.148864 [dp] => 'base64string.. very long' [ph1] => [ph2] => [ph3] => [ph4] => [interest] => #yes )
+$conn = getDB();
+$stmt = $conn->prepare("SELECT * FROM users WHERE login=?");
+$stmt->execute([$_SESSION['login']]);
+$me = $stmt->fetch();
 
 
-//exit (print_r($_SESSION));
-
-$gen = $_POST['gender'];
-$lat = $_POST['lat'];
-$long = $_POST['long'];
-$dob = ($_POST['dob']);
+if (isset($_POST['passwordcon']))
+	if (!password_verify($_POST['passwordcon'], $me['password']))
+		exit ("Wrong password entered. <meta http-equiv='refresh' content='3;url=account.php' />");
+if (isset($_POST['login']) && isset($_POST['email']) && isset($_POST['passwordcon']) && isset($_POST['password'])) {
+	 if (checkPass($_POST['password']) && checkLogin($_POST['login']) && checkEmail($_POST['email'])) {
+		 $pass =  password_hash($_POST['password'], PASSWORD_BCRYPT);
+		 $email = $_POST['email'];
+		 $login = $_POST['login'];
+		 $sql = "UPDATE users SET `email` = ?, `login` = ?, `password` = ?  WHERE login = ?";
+	         $statement= $conn->prepare($sql);
+	         $statement->execute([$_POST['email'], $_POST['login'], $pass, $_SESSION['login']]);
+	         $_SESSION['login'] = $login;
+	         $_SESSION['password'] = $pass;
+	         $_SESSION['email'] = $email;
+	 }
+	 else
+		 echo "Bad data entered.";
+}
 $first_name = ucfirst(strtolower($_POST['first_name']));
 $last_name = ucfirst(strtolower($_POST['last_name']));
 $gen_pref = $_POST['gender-pref'];
+$gen = $_POST['gender'];
 if (isset($_POST['ph1']) && strlen($_POST['ph1']) > 16) {
     $pic1 = $_POST['ph1'];
     $_SESSION['ph1'] = $pic1;
@@ -49,6 +65,10 @@ if (isset($_POST['dp']) && strlen($_POST['dp']) > 16) {
 else
     $dp = $_SESSION['dp'];
 $interest = checkInterest($_POST['interest'], 0);
+$lat = $_POST['lat'];
+$long = $_POST['long'];
+$dob = $_POST['dob'];
+
 
 
 if (isset($interest) && isset($long) && isset($lat) && isset($gen) && isset($gen_pref) && checkGen($gen) && checkGen($gen_pref) && isset($dp) && isset($dob) && checkDob($dob)  && isset($first_name) && isset($last_name) && checkName($first_name) && checkName($last_name)) {
@@ -77,6 +97,7 @@ if (isset($interest) && isset($long) && isset($lat) && isset($gen) && isset($gen
         exit ("Something went wrong, try again <meta http-equiv='refresh' content='3;url=account.php' />"); 
     }
 }
-else
-    echo "something wrong";
+else {
+	exit ("Sorry, something went wrong. <meta http-equiv='refresh' content='30;url=account.php' />");
+}
 exit("Now, that we know about you, you can go start hindering people. Enjoy. <meta http-equiv='refresh' content='3;url=index.php' />");

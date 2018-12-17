@@ -2,69 +2,172 @@
 
 include ("header.php");
 include ("../config/config.php");
+include ("backcheck.php");
+include ("checkSearch.php");
+include ("gps.php");
+include ("age.php");
+include ("visits.php");
+
 session_start();
 
-if (!isset($_GET['page']) || $_GET['page'] <= 0)
-	exit ("<meta http-equiv='refresh' content='0;url=index.php?page=1' />");
-if ($_SESSION['profile'] == 'N')
-	exit("Hi, ". htmlspecialchars($_SESSION['login']) .  ". Tell us about yourself. <meta http-equiv='refresh' content='2;url=profile.php' />");
-if ($_SESSION['login'])
-    getLoggedHead();
-else
-	exit ("Please login first. <meta http-equiv='refresh' content='1;url=login.php' />");
-
+if (isset($_SESSION['login'])) {
+	$_POST['long'] = $_SESSION['long'];
+	$_POST['lat'] = $_SESSION['lat'];
+	getLoggedHead();
+}
+else 
+	exit ("First login.<meta http-equiv='refresh' content='0;url=login.php' />");
+if (isset($_SESSION['profile']) && $_SESSION['profile'] == "N")
+	exit ("First tell us about yourself.<meta http-equiv='refresh' content='0;url=profile.php?page=1' />");
 
 $conn = getDB();
-$sql = "SELECT * FROM users";
-echo "<H1 style='color: white; margin: auto; width: 50%; text-align:center;'> Find matches 😍</H1>";
-echo "<div class='grid-container'>";
-foreach ($conn->query($sql) as $key=>$profile)
-{
-    if ($key < $_GET['page'] * 5 && $key >= $_GET['page'] * 5 - 5)
-    {
-        echo "<div class='grid-item'> <a href='action.php?id=" . $image['id'] . "'><img class='photo' id='base64image'                 
-          src='" .  $image['image'] . "' /></a></div>";
-    }
-}
-?>
 
-<html>
+$matches = [];
+
+$stmt = $conn->prepare("SELECT * FROM users WHERE login=?");
+$stmt->execute([$_SESSION['login']]);
+$me = $stmt->fetch();
+$int = checkInterest($me['interest'], 1);
+
+$sql = "SELECT * FROM users ORDER BY rating DESC";
+foreach ($conn->query($sql) as $key=>$profile) {
+	$intmatch = ($profile['interests']);
+    $dist = distance($me['lat'], $me['long'], $profile['lat'], $profile['long']);
+    $age = age_calc($profile['dob']);
+	if ($profile['profile'] == "Y" && $me['gen_pref'] == $profile['gen'] && $me['gen'] == $profile['gen_pref'] && $age <= age_calc($me['dob']) + 10 && $dist <= 20 && visits_check($profile['blocks'], $_SESSION['login']) != NULL){
+		array_push($matches, $profile);
+	}
+}
+	echo "<div class='grid-container'>";
+	if (sizeof($matches) > 0) {
+        foreach($matches as $key=>$found) {
+
+			echo "<div  style='display:none' class='grid-item' id='" . $key . "'<p style='font-size:medium'>" . $found['login'] . "<br>"  . $found['first_name'] . " " . $found['last_name'] . "<br>Age: " . age_calc($found['dob']) . "<br>They are " . round(distance($_POST['lat'], $_POST['long'], $found['lat'], $found['long'])) . " km away from you.<br>"; 
+		echo "Click <a href='profiles.php?user=" . $found['login'] . "'>here</a> to  meet them!";
+			echo"<p><br><img style= 'width:100%;'src='data:image/png;base64," . $found['dp'] . "'></div>";
+        }
+		echo "</div>";
+    }
+    else
+        echo "<p> Sorry there are no matches near you  :(</p>";
+    echo "<button onclick='switchie()'>View next match</button>";
+
+?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    let i = 1;
+    let end = 0;
+    let checkloop = 0;
+    if (document.getElementById(0) != null)
+        document.getElementById(0).style.display = "block";
+    while (document.getElementById(end) != null)
+        end++;
+    end--;
+        console.log(end);
+    function switchie() {
+	if (end == 0)
+		return;
+        if (document.getElementById(i) == null)
+          i = 0;
+        document.getElementById(i).style.display = "block";
+        if (i == 0 && checkloop > 0)
+            document.getElementById(end).style.display = "none";
+        else
+            document.getElementById(i - 1).style.display = "none";
+	i++;
+	checkloop++;
+    }
+function getLocation() {
+    if (document.getElementById("lat") == null)
+        return;
+   if (navigator.geolocation) {
+     navigator.geolocation.getCurrentPosition(showPosition,showError);
+   } else {
+     x.innerHTML = "Geolocation is not supported by this browser.";
+   }
+ }
+
+ function showPosition(position) {
+       document.getElementById("lat").value = (position.coords.latitude);
+       document.getElementById("long").value = (position.coords.longitude);
+ }
+
+ function showError(error) {
+   switch(error.code) {
+     case error.PERMISSION_DENIED:
+       $.getJSON('http://gd.geobytes.com/GetCityDetails?callback=?', function(data) {
+       var datas = (JSON.stringify(data, null, 2));
+       document.getElementById("long").value = (data.geobyteslongitude);
+       document.getElementById("lat").value = (data.geobyteslatitude);
+       console.log(data.geobyteslongitude);
+       });
+
+       break;
+     case error.POSITION_UNAVAILABLE:
+	     $.getJSON('http://gd.geobytes.com/GetCityDetails?callback=?', function(data) {
+        var datas = (JSON.stringify(data, null, 2));
+        document.getElementById("long").value = (data.geobyteslongitude);
+        document.getElementById("lat").value = (data.geobyteslatitude);
+        });
+
+       break;
+     case error.TIMEOUT:
+	     $.getJSON('http://gd.geobytes.com/GetCityDetails?callback=?', function(data) {
+        var datas = (JSON.stringify(data, null, 2));
+        document.getElementById("long").value = (data.geobyteslongitude);
+        document.getElementById("lat").value = (data.geobyteslatitude);
+        });
+
+       break;
+     case error.UNKNOWN_ERROR:
+	     $.getJSON('http://gd.geobytes.com/GetCityDetails?callback=?', function(data) {
+        var datas = (JSON.stringify(data, null, 2));
+        document.getElementById("long").value = (data.geobyteslongitude);
+        document.getElementById("lat").value = (data.geobyteslatitude);
+        });
+
+       break;
+   }
+ }
+ </script>
 <style>
+input{
+  height:50px;
+}
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  white-space:pre-line;
+  position:relative;
+  top:-7px;
+
+}
+::-moz-placeholder { /* Firefox 19+ */
+     white-space:pre-line;
+  position:relative;
+  top:-7px;
+}
+:-ms-input-placeholder { /* IE 10+ */
+    white-space:pre-line;
+  position:relative;
+  top:-7px;
+}
+:-moz-placeholder { /* Firefox 18- */
+     white-space:pre-line;
+  position:relative;
+  top:-7px;
+}
 .grid-container {
-  display: grid;
+  /*display: grid;*/
   grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   padding: 10px;
 }
 .grid-item {
+  width: 80%;
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid rgba(0, 0, 0, 0.8);
   padding: 20px;
   font-size: 30px;
   text-align: center;
 }
-.photo {
-    height: auto;
-    width: 100%;
-}
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- <script>
- setInterval(function () { $.ajax({
-     url: 'online.php',
-     success: function(){}
- }); }, 5000);
-   setInterval(function () { $.ajax({
-       url: 'checknot.php?',
-       data: { },
-       success: function(data){ $("#not").html(data);}
-   }); }, 5000);
-   setInterval(function () { $.ajax({
-       url: 'checkmes.php?',
-       data: { },
-       success: function(data){ $("#mes").html(data);}
-   }); }, 5000);
- </script>
-<body style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">
-</body>
-<footer style ="color: gray; text-align: center; margin-top: 10em;"><hr style="border: 2px solid gray;" />dkaplanⓒ</footer>
-</html>
+<body onload="getLocation();"style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">

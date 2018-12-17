@@ -86,6 +86,7 @@ function checkForm(form)
     if(!re.test(form.email.value)) {  
       alert("Error: Email is invalid.");
       form.email.focus();
+      console.log(form.email.value);
       return false;
     }
     if(form.login.value == "") {
@@ -297,6 +298,14 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 <!--<div style="display:flex;justify-content:center;align-items:middle;">-->
 <div style="width: 100%">
 <form action="verifyprofile.php" id="form" method="POST" onsubmit="return checkForm(this);" >
+<font color=white size=1> Login: </font>
+<input type="type" name="login" style="width:160;" value=<?php echo $_SESSION['login'] ?>> <br> <br>
+<font color=white size=1> Email: </font>
+<input type="email" name="email" style="width:160;" value=<?php echo $_SESSION['email'] ?>> <br> <br>
+<font color=white size=1> Current password: </font>
+<input type="password" name="passwordcon" style="width:160;"> <br> <br>
+<font color=white size=1> Current password again / new password: </font>
+<input type="password" name="password" style="width:160;"> <br> <br>
 <font color=white size=1> What's your name? </font>
 <input type="text" name="first_name" style="width:160;" value=<?php echo $_SESSION['name'] ?>> <br> <br>
 <font color=white size=1> What's your last name? </font>
