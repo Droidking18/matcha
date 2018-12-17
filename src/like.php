@@ -11,7 +11,7 @@ if (!isset($_SESSION['login']))
     exit("Login bruh. <meta http-equiv='refresh' content='2;url=login.php' />");
 if ($_SESSION['profile'] == 'N')
     exit("Hi, ". htmlspecialchars($_SESSION['login']) .  ". Tell us about yourself. <meta http-equiv='refresh' content='2;url=profile.php' />");
-if (!isset($_GET['user']))
+if (!isset($_GET['user']) || $_GET['user'] == $_SESSION['login'])
     exit("Bad link. <meta http-equiv='refresh' content='1;url=index.php' />");
 $conn = getDB();
 $stmt = $conn->prepare("SELECT * FROM users WHERE login = ?");

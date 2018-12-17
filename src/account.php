@@ -297,6 +297,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 <body onload="eventListen(); eventListen1(); eventListen2(); eventListen3(); eventListen4(); getLocation();" style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">
 <!--<div style="display:flex;justify-content:center;align-items:middle;">-->
 <div style="width: 100%">
+<p style="color: white;">To see your public profile and account stats, click <a href="me.php">here</a>.<p>
 <form action="verifyprofile.php" id="form" method="POST" onsubmit="return checkForm(this);" >
 <font color=white size=1> Login: </font>
 <input type="type" name="login" style="width:160;" value=<?php echo $_SESSION['login'] ?>> <br> <br>
