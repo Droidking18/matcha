@@ -5,6 +5,7 @@ include ("../config/config.php");
 include ("header.php");
 include ("visits.php");
 include ("age.php");
+include ("actionview.php");
 
 
 if (isset($_SESSION['login']))
@@ -17,6 +18,15 @@ $conn = getDB();
 $stmt = $conn->prepare("SELECT * FROM users WHERE login=?");
 $stmt->execute([$_SESSION['login']]);
 $user = $stmt->fetch();
+
+if ($_GET['action'] == "visits")
+	exit (display_list($user['visits'], "Visits"));
+if ($_GET['action'] == "likes")
+	exit (display_list($user['likes'], "Likes"));
+if ($_GET['action'] == "dislikes")
+	exit (display_list($user['dislikes'], "Dislikes"));
+if ($_GET['action'] == "blocks")
+	exit (display_list($user['blocks'], "Blocks"));
 
 $noimage = "<div style='display: inline;'> <img width=24% height=auto src='https://vignette.wikia.nocookie.net/citrus/images/6/60/No_Image_Available.png/revision/latest?cb=20170129011325'></div>";
 echo "<div style='width: 50%; float:right;'>";
@@ -59,9 +69,10 @@ else
     echo "the other.<\li>";
 echo "<li>" . age_calc($user['dob']) . " years old. ($user[dob])</li>";
 echo "<li>Interests:  " . implode(", ", unserialize($user['interests'])) . "</li>";
-echo "<li>You have " .  sizeof(unserialize($user['likes'])) . " like(s).</li>";
-echo "<li>You have " .  sizeof(unserialize($user['dislikes'])) . " dislike(s).</li>";
-echo "<li>You have " .  sizeof(unserialize($user['blocks'])) . " block(s).</li>";
+echo "<li>You have " .  sizeof(unserialize($user['likes'])) . " like(s). Click <a href='me.php?action=likes'>here</a> to view them.</li>";
+echo "<li>You have " .  sizeof(unserialize($user['dislikes'])) . " dislike(s).  Click <a href='me.php?action=dislikes'>here</a> to view them.</li>";
+echo "<li>You have " .  sizeof(unserialize($user['blocks'])) . " block(s).  Click <a href='me.php?action=blocks'>here</a> to view them.</li>";
+echo "<li>You have " .  sizeof(unserialize($user['visits'])) . " visits(s).  Click <a href='me.php?action=visits'>here</a> to view them.</li>";
 echo "</div>";
 
 ?>

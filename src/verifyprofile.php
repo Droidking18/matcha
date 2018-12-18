@@ -16,7 +16,8 @@ if (isset($_POST['passwordcon']))
 	if (!password_verify($_POST['passwordcon'], $me['password']))
 		exit ("Wrong password entered. <meta http-equiv='refresh' content='3;url=account.php' />");
 if (isset($_POST['login']) && isset($_POST['email']) && isset($_POST['passwordcon']) && isset($_POST['password'])) {
-	 if (checkPass($_POST['password']) && checkLogin($_POST['login']) && checkEmail($_POST['email'])) {
+	if (checkPass($_POST['password']) && checkLogin($_POST['login']) && checkEmail($_POST['email'])) {
+		try {
 		 $pass =  password_hash($_POST['password'], PASSWORD_BCRYPT);
 		 $email = $_POST['email'];
 		 $login = $_POST['login'];
@@ -26,9 +27,22 @@ if (isset($_POST['login']) && isset($_POST['email']) && isset($_POST['passwordco
 	         $_SESSION['login'] = $login;
 	         $_SESSION['password'] = $pass;
 	         $_SESSION['email'] = $email;
-	 }
+		}
+	catch (PDOexception $e) {
+		if (preg_match ("/Duplicate/", $e->getMessage()))
+                         if (preg_match ("/login/", $e->getMessage())){
+                                 echo "Username \"" . $_POST['login'] . "\" has  been taken. Try a different one. Redirecting..";
+                                 echo "<meta http-equiv='refresh' content='4;    url=login.php' />";
+                         }
+                         else if (preg_match ("/email/", $e->getMessage())){
+                                 echo "Email \"" . $_POST['email'] . "\" is      associated to an account. Try logging in. Redirecting..";
+                                 exit ( "<meta http-equiv='refresh' content='4;    url=login.php' />");
+			 }
+	}
+ }
 	 else
 		 echo "Bad data entered.";
+
 }
 $first_name = ucfirst(strtolower($_POST['first_name']));
 $last_name = ucfirst(strtolower($_POST['last_name']));
