@@ -27,8 +27,6 @@ foreach ($new as $key=>$thread) {
     if ($_GET['id'] == $thread['id'])
     {
         $exist = $key;
-	//echo $thread['id'] . $exist;
-	//echo $new[$exist]['message']['sen1'];
     }
 }
     	
@@ -37,8 +35,9 @@ foreach ($new as $key=>$thread) {
 if ($exist == -1)
     exit("Bad link. exit <meta http-equiv='refresh' content='0;url=message.php'/>");
 
-//exit (print_r($new[$exist]['user']));
-if (isset($_POST['message']) && isset($_POST['user']) && isset($_POST['id'])) {
+if (isset($_POST['message']) && isset($_POST['user']) && isset($_POST['id'])) 
+{
+try {
     $update = send_message($_POST['user'], $_POST['message'], 0);
     $update_in = send_message($_POST['user'], $_POST['message'], 1);
     $sql = "UPDATE users SET messages = ? WHERE login = ?";
@@ -48,6 +47,9 @@ if (isset($_POST['message']) && isset($_POST['user']) && isset($_POST['id'])) {
     $statement= $conn->prepare($sql);
     $statement->execute([$update_in, "Y", $_POST['user']]);
     exit ("<meta http-equiv='refresh' content='0;url=chat.php?id="  . $_POST['id']  . "'/>");
+}
+catch (PDOException $e) {
+    exit ("Sorry, a charcter you used aren't supported. <meta http-equiv='refresh' content='0;url=chat.php?id="  . $_POST['id']  . "'/>");
 }
     
 ?>
