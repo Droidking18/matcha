@@ -294,7 +294,7 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
    }); }, 5000);
  </script>
 </head>
-<body onload="eventListen(); eventListen1(); eventListen2(); eventListen3(); eventListen4(); getLocation();" style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">
+<body onload="eventListen(); eventListen1(); eventListen2(); eventListen3(); eventListen4();" style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">
 <!--<div style="display:flex;justify-content:center;align-items:middle;">-->
 <div style="width: 100%">
 <p style="color: white;">To see your public profile and account stats, click <a href="me.php">here</a>.<p>
@@ -337,15 +337,16 @@ if (window.File && window.FileReader && window.FileList && window.Blob) {
 <?php if ($_SESSION['ph4']) echo "<font color='white' size=1>Your pic 4 is:</font> <img style='height: 30' id='base64image' src= 'data:image/png;base64," .  $_SESSION['ph4'] . "'/>"; else echo "<font size = 1 color ='white'> No image set for image 4. </font>" ?> <br><br>
 <input type="file" name="pho4" accept="image/png" id="photo4" color="white"> <font size=1 color="white"> Upload some images of yourself. (not required)</font> <br><br>
 <!-- <button onclick="getLocation()">Get location</button> <br> <br> -->
-<input type="hidden" name="long" id="long" required>
-<input type="hidden" name="lat" id="lat" required>
+<input type="hidden" name="long" id="long" value = <?php echo $_SESSION['long']; ?> required>
+<input type="hidden" name="lat" id="lat" value = <?php echo                   $_SESSION['lat']; ?> required>
 <input type="hidden" name="dp" id="dp" value= <?php echo $_SESSION['dp']; ?>>
 <input type="hidden" name="ph1" id="ph1" value= <?php echo $_SESSION['ph1']; ?>>
 <input type="hidden" name="ph2" id="ph2" value= <?php echo $_SESSION['ph2']; ?>>
 <input type="hidden" name="ph3" id="ph3" value= <?php echo $_SESSION['ph3']; ?>>
 <input type="hidden" name="ph4" id="ph4" value= <?php echo $_SESSION['ph4']; ?>>
-<input class="button" onclick="getLocation()" type="submit" value="Submit">
+<input class="button" type="submit" value="Submit">
 </form>
+<button onclick="getLocation();">Click here to update your address to here</button> <br>
 </div>
 </body>
 <footer style ="color: gray; text-align: center;"><hr style="border: 2px solid gray;" />dkaplanⓒ</footer>
