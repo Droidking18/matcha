@@ -127,6 +127,8 @@ function passvis() {
 <body style="background-color:grey;" style="background-size: cover;" style="background-size: cover;">
 <div style="display:flex;justify-content:center;align-items:center;">
 <form action="verify.php" id="form" method="POST" onsubmit="return checkForm(this);" >
+<input id="First Name" style="width: 160px;" type="text" name="name" placeholder="Enter first name" required><br><br>
+<input id="Last Name" style="width: 160px;" type="text" name="lname" placeholder="Enter last name" required><br><br>
 <input id="login" style="width: 160px;" type="text" name="login" placeholder="Enter login" required><br><br>
 <input id="pw" style="width: 160px;" type="password" name="password" placeholder="Enter password" required><font color="white" face="verdana" size="1">Show password</font><input style="color: white" type="checkbox" onclick="passvis()"><br><br>
 <input id="email" style="width: 160px;" type="text" name="email" placeholder="Enter email" required> <br> <br>
