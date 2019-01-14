@@ -13,7 +13,7 @@ include ("backcheck.php");
 //exit(print_r($_POST));
 
 if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email'])) {
-	if (!checkLogin($_POST['login']) || !checkpass($_POST['password']) || !checkEmail($_POST['email']))
+	if (!checkLogin($_POST['login']) || !checkpass($_POST['password']) || !checkEmail($_POST['email']) || !CheckName($_POST['name']) || !CheckName($_POST['lname']))
         exit ("You got something wrong, and that only happened becuase you played with my JS. Not cool man, not cool. <meta http-equiv='refresh' content='2;url=login.php' />");
     try {
         $conn = getDB();
@@ -22,10 +22,12 @@ if (isset($_POST['login']) && isset($_POST['password']) && isset($_POST['email']
         $hash = password_hash($_POST['password'], PASSWORD_BCRYPT);
         $id = uniqid('', TRUE) . uniqid('', TRUE);
         $login = htmlspecialchars($_POST["login"]);
-        $email = htmlspecialchars($_POST["email"]);
-        $sql = "INSERT INTO users (id, login, password, email, notification, notifications, profile, dp, message, messages, online, visits) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		$email = htmlspecialchars($_POST["email"]);
+		$name = $_POST['name'];
+		$lname = $_POST['lname'];
+        $sql = "INSERT INTO users (id, login, password, email, notification, notifications, profile, dp, message, messages, online, visits, first_name, last_name) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $statement= $conn->prepare($sql);
-        $statement->execute([$id, $login, $hash, $email, "Y", $mess ,"N", "none", "Y", $not, mktime(), serialize([])]);
+        $statement->execute([$id, $login, $hash, $email, "Y", $mess ,"N", "none", "Y", $not, mktime(), serialize([]), $name, $lname]);
                  } catch (exception $e) {
                        echo $e->getMessage() . "\n";
                        exit ("Something went wrong, try again <meta http-equiv='refresh' content='3;url=index.php' />");

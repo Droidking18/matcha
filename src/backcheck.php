@@ -92,7 +92,7 @@ function checkDob($date) {
 
 function checkName($name) { 
     $re = "/^[A-Za-z]+$/";
-    if (preg_match($re, $name) && strlen($name) < 20)
+    if (preg_match($re, $name) && strlen($name) < 20 && strlen($name) > 1)
         return true;
     else
         return false;
