@@ -2,8 +2,8 @@
 
 ## Synopsis
 
-An instagram like website written with Apache, PHP and MYSQL. Project part of the web branch at WeThinkCode_.
-No libraries were allowed (both in front and back).
+An dating website written with Apache, PHP and MYSQL. Project part of the web branch at WeThinkCode_.
+No libraries were used (both in front and back).
 
 ## Requirements
 
@@ -13,7 +13,7 @@ No libraries were allowed (both in front and back).
 
 ## Installation 
 
-Clone this repo into MAMP/apache2/htdocs (or whichever webserver you're using) and restart the webserver. Run it by opening the browser to loaclahost:<webserver port>/camagru. To setup the DB go to /setup.php and configure the config correctly in config/config.php. 
+Clone this repo into MAMP/apache2/htdocs (or whichever webserver you're using) and restart the webserver. Run it by opening the browser to loaclahost:<webserver port>/matcha. To setup the DB go to /setup.php and configure the config correctly in config/config.php. 
 
 ## Code breakdown
 
@@ -45,13 +45,10 @@ Clone this repo into MAMP/apache2/htdocs (or whichever webserver you're using) a
 	* forgot.php - The file responsible for if user forgot password
 	* header.php - The file responsible for my header
 	* index.php - The landing page
-	* likes.php - The file responsible for likes
 	* login.php - The file responsible for login
 	* logout.php - The file responsible for logout
 	* mail.php - The file responsible for email
 	* mailver.php - The file responsible for mail verification 
-	* merge.php - The file responsible for merging images
-	* photo.php - The file responsible for photos
 	* signup.php - The file responsible for signing up 
 	* upload.php - The file responsible for uploading data
 	* verify.php - The file responsible for verification 
@@ -64,7 +61,11 @@ Clone this repo into MAMP/apache2/htdocs (or whichever webserver you're using) a
 		* Start webserver
 		* Create account
 		* Login
-		* Webcam
+		* Geolocation
+		* Filter
+		* Block
+		* Unlike user
+		* View profile
 		* Homepage
 		* Change user credentials
 
